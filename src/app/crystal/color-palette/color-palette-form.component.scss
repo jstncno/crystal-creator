@@ -1,0 +1,16 @@
+:host {
+  .palette-action-buttons {
+    text-align: right;
+  }
+
+  .color-input-group {
+    display: flex;
+
+    .color-block {
+      display: inline-block;
+      height: 30px;
+      margin: 15px 7px;
+      width: 30px;
+    }
+  }
+}

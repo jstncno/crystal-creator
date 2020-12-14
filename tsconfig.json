@@ -15,6 +15,10 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@crystal-creator/p5/*": ["src/sketches/*"],
+      "@crystal-creator/crystal/*": ["src/app/crystal/*"]
+    },
   }
 }

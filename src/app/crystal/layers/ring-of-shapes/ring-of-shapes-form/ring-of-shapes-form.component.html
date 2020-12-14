@@ -1,0 +1,51 @@
+<form *ngIf="form" [formGroup]="form" class="lines-form">
+  <h3><strong>Base params</strong></h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Size (px)</mat-label>
+    <input matInput formControlName="size" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Sides</mat-label>
+    <input matInput formControlName="sides" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Fill Color</mat-label>
+    <input matInput formControlName="fillColor">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Stroke Color</mat-label>
+    <input matInput formControlName="strokeColor">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Stroke Weight</mat-label>
+    <input matInput formControlName="strokeWeight" type="number">
+  </mat-form-field>
+
+  <hr/>
+
+  <h3><strong>Ring of Shapes params</strong></h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Shape sides</mat-label>
+    <input matInput formControlName="shapeSides" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Step Size</mat-label>
+    <input matInput formControlName="stepSize" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Max Steps</mat-label>
+    <input matInput formControlName="maxSteps" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Radius</mat-label>
+    <input matInput formControlName="radius" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Center</mat-label>
+    <input matInput formControlName="center" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Rotation</mat-label>
+    <input matInput formControlName="rotation" type="number">
+  </mat-form-field>
+</form>

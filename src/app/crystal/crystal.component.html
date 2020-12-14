@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col">
+    <cc-color-palette-form [(colors)]="palette"></cc-color-palette-form>
+  </div>
+  <div class="col">
+    <button mat-raised-button color="accent" (click)="randomize()">
+      Randomize
+    </button>
+    <div class="sketch-container">
+      <div id="sketch-holder" #sketch></div>
+    </div>
+  </div>
+  <div class="col">
+    <button mat-raised-button color="accent" (click)="redraw()">
+      Redraw
+    </button>
+    <cc-layers-form [layers]="layers"
+      (layersChange)="redraw()"
+      (addLayerPress)="addLayer()">
+    </cc-layers-form>
+  </div>
+</div>

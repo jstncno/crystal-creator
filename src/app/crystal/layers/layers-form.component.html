@@ -1,0 +1,73 @@
+<div class="layers-action-buttons">
+  <button mat-raised-button color="accent" (click)="addLayer()">
+    Add Layer
+  </button>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let layer of layers; let i = index"
+    [expanded]="lastOpenIndex === i"
+    (opened)="lastOpenIndex = i">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong>{{layer.name}}</strong>
+      </mat-panel-title>
+      <mat-panel-description>
+        <span></span>
+        <button mat-button class="remove-layer-button"
+          (click)="removeLayer($event, i)">
+          <mat-icon color="warn">delete</mat-icon>
+        </button>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select matInput [(value)]="layer.name"
+        (valueChange)="onLayersChange()">
+        <mat-option value="centered-shape">centered-shape</mat-option>
+        <mat-option value="circles">circles</mat-option>
+        <mat-option value="lines">lines</mat-option>
+        <mat-option value="dotted-lines">dotted-lines</mat-option>
+        <mat-option value="outline-shape">outline-shape</mat-option>
+        <mat-option value="ring-of-shapes">ring-of-shapes</mat-option>
+        <mat-option value="stepped-hexagons">stepped-hexagons</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <hr/>
+
+    <ng-container [ngSwitch]="layer.name">
+      <cc-centered-shape-form *ngSwitchCase="'centered-shape'"
+        [(layer)]="layers[i]"
+        (layerChange)="onLayersChange()">
+      </cc-centered-shape-form>
+      <cc-circles-form *ngSwitchCase="'circles'"
+       [(layer)]="layers[i]"
+       (layerChange)="onLayersChange()">
+      </cc-circles-form>
+      <cc-lines-form *ngSwitchCase="'lines'"
+        [(layer)]="layers[i]"
+        (layerChange)="onLayersChange()">
+      </cc-lines-form>
+      <cc-dotted-lines-form *ngSwitchCase="'dotted-lines'"
+        [(layer)]="layers[i]"
+        (layerChange)="onLayersChange()">
+      </cc-dotted-lines-form>
+      <cc-outline-shape-form *ngSwitchCase="'outline-shape'"
+        [(layer)]="layers[i]"
+        (layerChange)="onLayersChange()">
+      </cc-outline-shape-form>
+      <cc-ring-of-shapes-form *ngSwitchCase="'ring-of-shapes'"
+        [(layer)]="layers[i]"
+        (layerChange)="onLayersChange()">
+      </cc-ring-of-shapes-form>
+      <cc-stepped-hexagons-form *ngSwitchCase="'stepped-hexagons'"
+        [(layer)]="layers[i]"
+        (layerChange)="onLayersChange()">
+      </cc-stepped-hexagons-form>
+      <div *ngSwitchDefault>{{layer.name}}</div>
+    </ng-container>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,31 @@
+<form *ngIf="form" [formGroup]="form" class="lines-form">
+  <h3><strong>Base params</strong></h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Size (px)</mat-label>
+    <input matInput formControlName="size" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Sides</mat-label>
+    <input matInput formControlName="sides" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Fill Color</mat-label>
+    <input matInput formControlName="fillColor">
+  </mat-form-field>
+
+  <hr/>
+
+  <h3><strong>Lines params</strong></h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Num Lines</mat-label>
+    <input matInput formControlName="numLines" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Dot Size</mat-label>
+    <input matInput formControlName="dotSize" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Center Offset</mat-label>
+    <input matInput formControlName="centerOffset" type="number">
+  </mat-form-field>
+</form>

@@ -1,0 +1,31 @@
+<form *ngIf="form" [formGroup]="form" class="circles-form">
+  <h3><strong>Base params</strong></h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Size (px)</mat-label>
+    <input matInput formControlName="size" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Sides</mat-label>
+    <input matInput formControlName="sides" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Stroke Color</mat-label>
+    <input matInput formControlName="strokeColor">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Stroke Weight</mat-label>
+    <input matInput formControlName="strokeWeight" type="number">
+  </mat-form-field>
+
+  <hr/>
+
+  <h3><strong>Circles params</strong></h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Diameter</mat-label>
+    <input matInput formControlName="diameter" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Position</mat-label>
+    <input matInput formControlName="position" type="number">
+  </mat-form-field>
+</form>

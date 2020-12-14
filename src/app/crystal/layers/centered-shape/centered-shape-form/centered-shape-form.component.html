@@ -1,0 +1,46 @@
+<form *ngIf="form" [formGroup]="form" class="centered-shape-form">
+  <h3><strong>Base params</strong></h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Size (px)</mat-label>
+    <input matInput formControlName="size" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Sides</mat-label>
+    <input matInput formControlName="sides" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Fill Color</mat-label>
+    <input matInput formControlName="fillColor">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Stroke Color</mat-label>
+    <input matInput formControlName="strokeColor">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Stroke Weight</mat-label>
+    <input matInput formControlName="strokeWeight" type="number">
+  </mat-form-field>
+  <hr/>
+  <h3><strong>Centered Shape params</strong></h3>
+  <mat-form-field appearance="outline">
+    <mat-label>Shape</mat-label>
+    <mat-select matInput formControlName="shape">
+      <mat-option value="hexagon">hexagon</mat-option>
+      <mat-option value="circle">circle</mat-option>
+      <mat-option value="rect">rect</mat-option>
+      <mat-option value="triangle">triangle</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Shape Size</mat-label>
+    <input matInput formControlName="shapeSize" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Steps Out</mat-label>
+    <input matInput formControlName="stepsOut" type="number">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Rotation</mat-label>
+    <input matInput formControlName="rotation" type="number">
+  </mat-form-field>
+</form>

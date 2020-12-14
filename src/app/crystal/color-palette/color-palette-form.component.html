@@ -1,0 +1,24 @@
+<div class="palette-action-buttons">
+  <button mat-raised-button color="accent" (click)="addColor()">
+    Add Color
+  </button>
+</div>
+
+<form *ngIf="form" [formGroup]="form" class="palette-form">
+  <ng-container formArrayName="colors">
+    <div *ngFor="let control of colorsFormArray.controls; index as i">
+      <ng-container [formGroupName]="i">
+        <div class="color-input-group">
+          <span class="color-block" [ngStyle]="{'background-color': colors[i]}">
+          </span>
+          <mat-form-field appearance="outline">
+            <mat-label>Color</mat-label>
+            <input matInput formControlName="hex"
+              [colorPicker]="colors[i]"
+              (colorPickerChange)="changeColor($event, i)">
+          </mat-form-field>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</form>
