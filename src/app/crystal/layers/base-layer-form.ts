@@ -2,6 +2,7 @@ import { Directive, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Layer } from '@crystal-creator/crystal/layers/base-layer';
 import { BroadcastService } from '../broadcast.service';
+import { ColorPaletteService } from '../color-palette/color-palette.service';
 
 @Directive()
 export class BaseLayerForm implements OnInit {
@@ -12,9 +13,12 @@ export class BaseLayerForm implements OnInit {
   layerChange: EventEmitter<Layer> = new EventEmitter<Layer>();
   form: FormGroup;
 
+  colors$ = this.colors.colorPalette$;
+
   constructor(
     protected readonly fb: FormBuilder,
-    protected readonly broadcast: BroadcastService) { }
+    protected readonly broadcast: BroadcastService,
+    protected readonly colors: ColorPaletteService) { }
 
   ngOnInit() {
     this.setForm();

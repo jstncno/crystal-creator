@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ColorPaletteService } from './color-palette.service';
 
 @Component({
   selector: 'cc-color-palette-form',
@@ -20,17 +21,20 @@ export class ColorPaletteFormComponent implements OnInit {
     return this.form.get('colors') as FormArray;
   }
 
-  constructor(protected readonly fb: FormBuilder) { }
+  constructor(
+    protected readonly fb: FormBuilder,
+    protected readonly palette: ColorPaletteService) { }
 
   ngOnInit(): void {
     this.setForm();
+    this.setColorsFromForm();
   }
 
   addColor() {
     const hex = this.colors[this.colors.length-1];
     this.colors.push(hex);
     this.setForm();
-    this.colorsChange.emit(this.colors);
+    this.setColorsFromForm();
   }
 
   removeColor(event: MouseEvent, index: number) {
@@ -48,6 +52,7 @@ export class ColorPaletteFormComponent implements OnInit {
     const {colors} = this.form.getRawValue();
     if (!colors) return;
     this.colors = colors.map(c => c.hex);
+    this.palette.setColors(this.colors);
     this.colorsChange.emit(this.colors);
   }
 

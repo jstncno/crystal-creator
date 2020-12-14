@@ -42,3 +42,12 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
 }
+
+.color-option-container {
+  display: flex;
+  .color-block-option {
+    height: 20px;
+    margin: auto 5% auto 0;
+    width: 20px;
+  }
+}
