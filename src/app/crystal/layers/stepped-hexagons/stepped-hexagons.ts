@@ -15,7 +15,6 @@ export interface SteppedHexagonsLayer extends RenderableLayer {
 export class SteppedHexagons implements SteppedHexagonsLayer {
   name: string = 'stepped-hexagons';
   sides: number = NaN;
-  fillColor: string = 'black';
   strokeColor: string = 'black';
   strokeWeight: number = 1;
   size: number = 500;
@@ -28,7 +27,6 @@ export class SteppedHexagons implements SteppedHexagonsLayer {
 
   constructor(params?: Partial<SteppedHexagonsLayer>) {
     this.sides = params?.sides ?? this.sides;
-    this.fillColor = params?.fillColor ?? this.fillColor;
     this.strokeColor = params?.strokeColor ?? this.strokeColor;
     this.strokeWeight = params?.strokeWeight ?? this.strokeWeight;
     this.size = params?.size ?? this.size;

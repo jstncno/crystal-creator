@@ -1,5 +1,7 @@
 import { Directive, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
+
 import { Layer } from '@crystal-creator/crystal/layers/base-layer';
 import { BroadcastService } from '../broadcast.service';
 import { ColorPaletteService } from '../color-palette/color-palette.service';
@@ -13,7 +15,7 @@ export class BaseLayerForm implements OnInit {
   layerChange: EventEmitter<Layer> = new EventEmitter<Layer>();
   form: FormGroup;
 
-  colors$ = this.colors.colorPalette$;
+  colors$ = this.colors.colorPalette$.pipe(map(c => [null].concat(c)));
 
   constructor(
     protected readonly fb: FormBuilder,

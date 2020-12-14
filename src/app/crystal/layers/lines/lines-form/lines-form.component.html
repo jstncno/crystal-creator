@@ -10,7 +10,7 @@
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Stroke Color</mat-label>
-    <input matInput formControlName="strokeColor">
+    <input matInput formControlName="strokeColor" [matAutocomplete]="colors">
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Stroke Weight</mat-label>
@@ -37,3 +37,13 @@
     <input matInput formControlName="end" type="number">
   </mat-form-field>
 </form>
+
+<mat-autocomplete autoActiveFirstOption #colors="matAutocomplete">
+  <mat-option *ngFor="let color of colors$ | async" [value]="color">
+    <div class="color-option-container">
+      <div class="color-block-option" [ngStyle]="{'background-color': color}">
+      </div>
+      {{color}}
+    </div>
+  </mat-option>
+</mat-autocomplete>

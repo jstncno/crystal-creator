@@ -11,6 +11,7 @@ export interface OutlineShapeLayer extends RenderableLayer {
 export class OutlineShape implements OutlineShapeLayer {
   name: string = 'outline-shape';
   sides: number = NaN;
+  fillColor: string;
   strokeColor: string = 'black';
   strokeWeight: number = 1;
   size: number = 500;
@@ -20,6 +21,7 @@ export class OutlineShape implements OutlineShapeLayer {
   constructor(params?: Partial<OutlineShapeLayer>) {
     this.sides = params?.sides ?? this.sides;
     if (!this.sides) throw `Unexpected value for sides: ${this.sides}`;
+    this.fillColor = params?.fillColor ?? null;
     this.strokeColor = params?.strokeColor ?? this.strokeColor;
     this.strokeWeight = params?.strokeWeight ?? this.strokeWeight;
     this.size = params?.size ?? this.size;
@@ -30,6 +32,8 @@ export class OutlineShape implements OutlineShapeLayer {
   render = (sketch: p5) => {
     this.shape = this.shape ?? utils.chooseOne(sketch, ['hexagon', 'circle']);
 
+    if (this.fillColor) sketch.fill(utils.getColor(sketch, this.fillColor));
+    else sketch.noFill();
     sketch.stroke(utils.getColor(sketch, this.strokeColor));
     sketch.strokeWeight(this.strokeWeight);
     sketch.push();

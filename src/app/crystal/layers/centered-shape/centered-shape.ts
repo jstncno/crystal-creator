@@ -14,7 +14,7 @@ export interface CenteredShapeLayer extends Layer {
 export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
   name: string = 'centered-shape';
   sides: number = NaN;
-  fillColor: string = 'black';
+  fillColor: string;
   strokeColor: string = 'black';
   strokeWeight: number = 1;
   size: number = 500;
@@ -28,7 +28,7 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
     this.sides = params?.sides ?? this.sides;
     if (!this.sides)
       throw `Unexpected value for sides: ${this.sides}`;
-    this.fillColor = params?.strokeColor ?? this.fillColor;
+    this.fillColor = params?.fillColor ?? this.fillColor;
     this.strokeColor = params?.strokeColor ?? this.strokeColor;
     this.strokeWeight = params?.strokeWeight ?? this.strokeWeight;
     this.size = params?.size ?? this.size;
@@ -46,7 +46,8 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
     this.shapeSize = this.shapeSize ?? sketch.floor(sketch.random(
         this.stepsOut / 2, this.stepsOut)) * step;
 
-    sketch.fill(utils.getColor(sketch, this.fillColor));
+    if (this.fillColor) sketch.fill(utils.getColor(sketch, this.fillColor));
+    else sketch.noFill();
     sketch.stroke(utils.getColor(sketch, this.strokeColor));
     sketch.strokeWeight(this.strokeWeight);
     sketch.push();

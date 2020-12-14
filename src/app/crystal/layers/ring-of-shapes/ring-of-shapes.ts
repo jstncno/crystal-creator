@@ -16,7 +16,6 @@ export interface RingOfShapesLayer extends RenderableLayer {
 export class RingOfShapes implements RingOfShapesLayer {
   name: string = 'ring-of-shapes';
   sides: number = NaN;
-  fillColor: string = 'black';
   strokeColor: string = 'black';
   strokeWeight: number = 1;
   size: number = 500;
@@ -30,7 +29,6 @@ export class RingOfShapes implements RingOfShapesLayer {
 
   constructor(params?: Partial<RingOfShapesLayer>) {
     this.sides = params?.sides ?? this.sides;
-    this.fillColor = params?.fillColor ?? this.fillColor;
     this.strokeColor = params?.strokeColor ?? this.strokeColor;
     this.strokeWeight = params?.strokeWeight ?? this.strokeWeight;
     this.size = params?.size ?? this.size;
