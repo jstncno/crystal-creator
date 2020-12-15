@@ -20,6 +20,13 @@
     <mat-label>Position</mat-label>
     <input matInput formControlName="position" type="number">
   </mat-form-field>
+
+  <div class="action-buttons">
+    <button mat-raised-button color="accent" type="button"
+      (click)="randomize.emit()">
+      Randomize
+    </button>
+  </div>
 </form>
 
 <mat-autocomplete autoActiveFirstOption #colors="matAutocomplete">

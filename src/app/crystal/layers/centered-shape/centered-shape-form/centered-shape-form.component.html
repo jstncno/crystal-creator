@@ -11,7 +11,9 @@
     <mat-label>Stroke Weight</mat-label>
     <input matInput formControlName="strokeWeight" type="number">
   </mat-form-field>
+
   <hr/>
+
   <h3><strong>Centered Shape params</strong></h3>
   <mat-form-field appearance="outline">
     <mat-label>Shape</mat-label>
@@ -34,6 +36,13 @@
     <mat-label>Rotation</mat-label>
     <input matInput formControlName="rotation" type="number">
   </mat-form-field>
+
+  <div class="action-buttons">
+    <button mat-raised-button color="accent" type="button"
+      (click)="randomize.emit()">
+      Randomize
+    </button>
+  </div>
 </form>
 
 <mat-autocomplete autoActiveFirstOption #colors="matAutocomplete">

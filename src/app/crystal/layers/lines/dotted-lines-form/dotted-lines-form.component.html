@@ -20,6 +20,13 @@
     <mat-label>Center Offset</mat-label>
     <input matInput formControlName="centerOffset" type="number">
   </mat-form-field>
+
+  <div class="action-buttons">
+    <button mat-raised-button color="accent" type="button"
+      (click)="randomize.emit()">
+      Randomize
+    </button>
+  </div>
 </form>
 
 <mat-autocomplete autoActiveFirstOption #colors="matAutocomplete">

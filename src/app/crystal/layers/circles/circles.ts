@@ -30,8 +30,11 @@ export class Circles implements CirclesLayer {
 
   render = (sketch: p5) => {
     const halfSize = this.size / 2;
-    this.diameter = this.diameter ?? halfSize * 0.9;
-    this.position = this.position ?? halfSize - (this.diameter / 2);
+    const eighth = this.size / 8;
+    const sixteenth = this.size / 16;
+    this.diameter = this.diameter ?? sketch.random(sixteenth, halfSize * 0.9);
+    this.position = this.position ?? utils.chooseOne(sketch,
+      [this.diameter, halfSize-this.diameter, halfSize-(this.diameter/2)]);
     const angle = 360 / this.sides;
 
     sketch.noFill();

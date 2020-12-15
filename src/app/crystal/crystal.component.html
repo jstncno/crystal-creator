@@ -17,7 +17,8 @@
     <cc-layers-form [layers]="layers"
       (layersChange)="redraw()"
       (addLayerPress)="addLayer()"
-      (layersReordered)="redraw()">
+      (layersReordered)="redraw()"
+      (randomizeLayerData)="randomizeLayer($event)">
     </cc-layers-form>
   </div>
 </div>

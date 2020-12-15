@@ -14,12 +14,12 @@ import { BroadcastService } from './broadcast.service';
 
 const LAYER_PROBABILITIES = [
   {name: 'centered-shape', prob: 0.14},
-  {name: 'circles', prob: 0.16},
-  {name: 'lines', prob: 0.14},
-  {name: 'dotted-lines', prob: 0.14},
-  {name: 'outline-shape', prob: 0.14},
-  {name: 'ring-of-shapes', prob: 0.14},
-  {name: 'stepped-hexagons', prob: 0.14},
+  {name: 'circles', prob: 0.17},
+  {name: 'lines', prob: 0.15},
+  {name: 'dotted-lines', prob: 0.15},
+  {name: 'outline-shape', prob: 0.07},
+  {name: 'ring-of-shapes', prob: 0.16},
+  {name: 'stepped-hexagons', prob: 0.16},
 ];
 
 const AVAILABLE_LAYERS = LAYER_PROBABILITIES.map(l => l.name);
@@ -104,6 +104,12 @@ export class CrystalComponent extends AbstractBaseSketch {
 
   addLayer() {
     this.layers.push(this.randomLayerData());
+    this.redraw();
+  }
+
+  randomizeLayer(index: number) {
+    if (index < 0 || index >= this.layers_.length) return;
+    this.layers_[index] = this.randomLayerData(this.layers_[index].name);
     this.redraw();
   }
 

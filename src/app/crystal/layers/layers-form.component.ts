@@ -22,6 +22,9 @@ export class LayersFormComponent implements OnInit {
   @Output()
   layersReordered = new EventEmitter<void>();
 
+  @Output()
+  randomizeLayerData = new EventEmitter<number>();
+
   lastOpenIndex: number = 0;
 
   constructor() { }

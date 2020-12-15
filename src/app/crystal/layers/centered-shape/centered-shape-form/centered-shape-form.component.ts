@@ -19,10 +19,10 @@ export class CenteredShapeFormComponent extends BaseLayerForm implements OnInit 
     const baseParams = super.generateLayerFormGroupParams();
     return {
       ...baseParams,
-      shape: this.fb.control(this.layer?.shape ?? 'hexagon'),
-      shapeSize: this.fb.control(this.layer?.shapeSize ?? 30),
+      shape: this.fb.control(this.layer?.shape),
+      shapeSize: this.fb.control(this.layer?.shapeSize),
       stepsOut: this.fb.control(this.layer?.stepsOut ?? 9),
-      rotation: this.fb.control(this.layer?.rotation ?? 0),
+      rotation: this.fb.control(this.layer?.rotation),
     };
   }
 }

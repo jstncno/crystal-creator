@@ -42,31 +42,38 @@
     <ng-container [ngSwitch]="layer.name">
       <cc-centered-shape-form *ngSwitchCase="'centered-shape'"
         [(layer)]="layers[i]"
-        (layerChange)="onLayersChange()">
+        (layerChange)="onLayersChange()"
+        (randomize)="randomizeLayerData.emit(i)">
       </cc-centered-shape-form>
       <cc-circles-form *ngSwitchCase="'circles'"
         [(layer)]="layers[i]"
-        (layerChange)="onLayersChange()">
+        (layerChange)="onLayersChange()"
+        (randomize)="randomizeLayerData.emit(i)">
       </cc-circles-form>
       <cc-lines-form *ngSwitchCase="'lines'"
         [(layer)]="layers[i]"
-        (layerChange)="onLayersChange()">
+        (layerChange)="onLayersChange()"
+        (randomize)="randomizeLayerData.emit(i)">
       </cc-lines-form>
       <cc-dotted-lines-form *ngSwitchCase="'dotted-lines'"
         [(layer)]="layers[i]"
-        (layerChange)="onLayersChange()">
+        (layerChange)="onLayersChange()"
+        (randomize)="randomizeLayerData.emit(i)">
       </cc-dotted-lines-form>
       <cc-outline-shape-form *ngSwitchCase="'outline-shape'"
         [(layer)]="layers[i]"
-        (layerChange)="onLayersChange()">
+        (layerChange)="onLayersChange()"
+        (randomize)="randomizeLayerData.emit(i)">
       </cc-outline-shape-form>
       <cc-ring-of-shapes-form *ngSwitchCase="'ring-of-shapes'"
         [(layer)]="layers[i]"
-        (layerChange)="onLayersChange()">
+        (layerChange)="onLayersChange()"
+        (randomize)="randomizeLayerData.emit(i)">
       </cc-ring-of-shapes-form>
       <cc-stepped-hexagons-form *ngSwitchCase="'stepped-hexagons'"
         [(layer)]="layers[i]"
-        (layerChange)="onLayersChange()">
+        (layerChange)="onLayersChange()"
+        (randomize)="randomizeLayerData.emit(i)">
       </cc-stepped-hexagons-form>
       <div *ngSwitchDefault>{{layer.name}}</div>
     </ng-container>

@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, OnInit } from '@angular/core';
+import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map } from 'rxjs/operators';
 
@@ -11,9 +11,12 @@ export class BaseLayerForm implements OnInit {
   static readonly NUM_SIDES = 6;
   static readonly SIZE_PIXELS = 500;
 
-  layer?: Layer;
-  layerChange: EventEmitter<Layer> = new EventEmitter<Layer>();
   form: FormGroup;
+  layer?: Layer;
+  @Output()
+  layerChange: EventEmitter<Layer> = new EventEmitter<Layer>();
+  @Output()
+  randomize: EventEmitter<void> = new EventEmitter<void>();
 
   colors$ = this.colors.colorPalette$.pipe(map(c => [null].concat(c)));
 

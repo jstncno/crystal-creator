@@ -23,6 +23,13 @@
       <mat-option value="circle">circle</mat-option>
     </mat-select>
   </mat-form-field>
+
+  <div class="action-buttons">
+    <button mat-raised-button color="accent" type="button"
+      (click)="randomize.emit()">
+      Randomize
+    </button>
+  </div>
 </form>
 
 <mat-autocomplete autoActiveFirstOption #colors="matAutocomplete">

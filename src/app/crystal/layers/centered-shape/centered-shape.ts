@@ -22,7 +22,7 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
   shape: 'hexagon' | 'circle'|'rect'|'triangle';
   shapeSize: number;
   stepsOut: number = 9;
-  rotation: number = 0;
+  rotation: number;
 
   constructor(params?: Partial<CenteredShapeLayer>) {
     this.sides = params?.sides ?? this.sides;
@@ -36,7 +36,7 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
     this.shape = params?.shape;
     this.shapeSize = params?.shapeSize;
     this.stepsOut = params?.stepsOut ?? this.stepsOut;
-    this.rotation = params?.rotation ?? this.rotation;
+    this.rotation = params?.rotation;
   }
 
   render = (sketch: p5) => {
@@ -45,6 +45,8 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
     const step = (this.size / 2) / this.stepsOut;
     this.shapeSize = this.shapeSize ?? sketch.floor(sketch.random(
         this.stepsOut / 2, this.stepsOut)) * step;
+    this.rotation = this.rotation ??
+      utils.chooseOne(sketch, [0, 30, 45, 60, 90], [0.15, 0.3, 0.1, 0.15, 0.3]);
 
     if (this.fillColor) sketch.fill(utils.getColor(sketch, this.fillColor));
     else sketch.noFill();
@@ -52,7 +54,7 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
     sketch.strokeWeight(this.strokeWeight);
     sketch.push();
       sketch.translate(sketch.width / 2, sketch.height / 2);
-      if (this.rotation) sketch.rotate(this.rotation);
+      sketch.rotate(this.rotation);
       switch (this.shape) {
         case 'hexagon':
           shapes.hexagon(sketch, 0, 0, this.shapeSize);
