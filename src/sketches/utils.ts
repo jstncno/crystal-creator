@@ -19,7 +19,17 @@ export function pointOnCircle(p5: p5, x: number, y: number, radius: number, angl
   return p5.createVector(posX, posY);
 }
 
-export function chooseOne(sketch: p5, choices: any[]) {
+export function chooseOne(sketch: p5, choices: any[], weights?: number[]) {
+  if (weights && choices.length === weights.length) {
+    if (weights.reduce((a, b) => a + b) === 1) {
+      const prob = sketch.random();
+      let weight = 0;
+      for (const i in weights) {
+        weight += weights[i];
+        if (prob <= weight) return choices[i];
+      }
+    } else console.warn('Probability weights need to add up to 1.0');
+  }
   const idx = sketch.floor(sketch.random(choices.length));
   return choices[idx];
 }

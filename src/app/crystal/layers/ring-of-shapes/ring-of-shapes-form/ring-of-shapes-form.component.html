@@ -1,14 +1,6 @@
 <form *ngIf="form" [formGroup]="form" class="lines-form">
   <h3><strong>Base params</strong></h3>
   <mat-form-field appearance="outline">
-    <mat-label>Size (px)</mat-label>
-    <input matInput formControlName="size" type="number">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Sides</mat-label>
-    <input matInput formControlName="sides" type="number">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
     <mat-label>Stroke Color</mat-label>
     <input matInput formControlName="strokeColor" [matAutocomplete]="colors">
   </mat-form-field>

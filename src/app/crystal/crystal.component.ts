@@ -11,15 +11,20 @@ import { SteppedHexagonsLayer, SteppedHexagons } from '@crystal-creator/crystal/
 import * as utils from '@crystal-creator/p5/utils';
 import { BroadcastService } from './broadcast.service';
 
-const AVAILABLE_LAYERS = [
-  'centered-shape',
-  'circles',
-  'lines',
-  'dotted-lines',
-  'outline-shape',
-  'ring-of-shapes',
-  'stepped-hexagons',
+
+const LAYER_PROBABILITIES = [
+  {name: 'centered-shape', prob: 0.14},
+  {name: 'circles', prob: 0.16},
+  {name: 'lines', prob: 0.14},
+  {name: 'dotted-lines', prob: 0.14},
+  {name: 'outline-shape', prob: 0.14},
+  {name: 'ring-of-shapes', prob: 0.14},
+  {name: 'stepped-hexagons', prob: 0.14},
 ];
+
+const AVAILABLE_LAYERS = LAYER_PROBABILITIES.map(l => l.name);
+const LAYER_WEIGHTS = LAYER_PROBABILITIES.map(l => l.prob);
+
 
 type SupportedLayer = Layer
   | CenteredShapeLayer
@@ -133,12 +138,11 @@ export class CrystalComponent extends AbstractBaseSketch {
 
   private randomLayerData(layerType?: string): Layer {
     if (!layerType || !AVAILABLE_LAYERS.includes(layerType)) {
-      const idx = this.floor(this.random(AVAILABLE_LAYERS.length));
-      layerType = AVAILABLE_LAYERS[idx];
+      layerType = utils.chooseOne(this, AVAILABLE_LAYERS, LAYER_WEIGHTS);
     }
     return {
       name: layerType,
-      size: 500,
+      size: CrystalComponent.CRYSTAL_SIZE_PX,
       sides: CrystalComponent.CRYSTAL_SIDES,
       strokeColor: utils.chooseOne(this, this.palette),
       strokeWeight: utils.chooseOne(this, [1, 3]),
