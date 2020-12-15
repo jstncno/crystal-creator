@@ -4,8 +4,9 @@
   </button>
 </div>
 
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let layer of layers; let i = index"
+<mat-accordion cdkDropList
+  [cdkDropListData]="layers" (cdkDropListDropped)="reorder($event)">
+  <mat-expansion-panel cdkDrag *ngFor="let layer of layers; let i = index"
     [expanded]="lastOpenIndex === i"
     (opened)="lastOpenIndex = i">
     <mat-expansion-panel-header>
@@ -44,8 +45,8 @@
         (layerChange)="onLayersChange()">
       </cc-centered-shape-form>
       <cc-circles-form *ngSwitchCase="'circles'"
-       [(layer)]="layers[i]"
-       (layerChange)="onLayersChange()">
+        [(layer)]="layers[i]"
+        (layerChange)="onLayersChange()">
       </cc-circles-form>
       <cc-lines-form *ngSwitchCase="'lines'"
         [(layer)]="layers[i]"

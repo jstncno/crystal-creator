@@ -24,7 +24,7 @@ export class RingOfShapes implements RingOfShapesLayer {
   center: number;
   shapeSides: number;
   stepSize: number = 1;
-  maxSteps: number = 8;
+  maxSteps: number = 9;
   rotation: number = 0;
 
   constructor(params?: Partial<RingOfShapesLayer>) {

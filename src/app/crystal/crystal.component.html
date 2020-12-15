@@ -16,7 +16,8 @@
     </button>
     <cc-layers-form [layers]="layers"
       (layersChange)="redraw()"
-      (addLayerPress)="addLayer()">
+      (addLayerPress)="addLayer()"
+      (layersReordered)="redraw()">
     </cc-layers-form>
   </div>
 </div>

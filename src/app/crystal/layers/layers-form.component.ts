@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { Layer } from '@crystal-creator/crystal/layers/base-layer';
 
@@ -17,6 +18,9 @@ export class LayersFormComponent implements OnInit {
 
   @Output()
   addLayerPress = new EventEmitter<void>();
+
+  @Output()
+  layersReordered = new EventEmitter<void>();
 
   lastOpenIndex: number = 0;
 
@@ -42,5 +46,12 @@ export class LayersFormComponent implements OnInit {
     event.stopPropagation();
     this.layers.splice(index, 1);
     this.layersChange.emit(this.layers);
+  }
+
+  reorder(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer !== event.container) return;
+    moveItemInArray(event.container.data, event.previousIndex,
+      event.currentIndex);
+    this.layersReordered.emit();
   }
 }

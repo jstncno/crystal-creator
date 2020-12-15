@@ -62,24 +62,7 @@ export class CrystalComponent extends AbstractBaseSketch {
     super();
   }
 
-  ngOnInit(): void {
-    // Test data
-    this.layers = [
-      {
-        name: 'centered-shape',
-        size: CrystalComponent.CRYSTAL_SIZE_PX,
-        sides: 6,
-        fillColor: '#694873',
-        strokeColor: '#694873',
-        strokeWeight: 3,
-        shape: 'hexagon',
-        stepsOut: 9,
-        rotation: 0,
-        shapeSize: CrystalComponent.CRYSTAL_SIZE_PX / 3,
-      },
-    ];
-  }
-  onlayerschange(event) {console.log(event)}
+  ngOnInit(): void {}
 
   setup() {
     const sizeWithBuffer = CrystalComponent.CRYSTAL_SIZE_PX * 1.06;
@@ -88,7 +71,7 @@ export class CrystalComponent extends AbstractBaseSketch {
     this.noLoop();
     this.angleMode(this.DEGREES);
     this.rectMode(this.CENTER);
-    // this.randomize(false /* redraw */);
+    this.randomize(false /* redraw */);
   }
 
   draw = () => {
