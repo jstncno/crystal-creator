@@ -17,7 +17,7 @@ $p5js-sticker-generator-primary: mat-palette($light, 50);
 $p5js-sticker-generator-accent: mat-palette($primary, 700);
 
 // The warn palette is optional (defaults to red).
-$p5js-sticker-generator-warn: mat-palette($mat-red);
+$p5js-sticker-generator-warn: mat-palette($warn, 900);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".

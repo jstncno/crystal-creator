@@ -48,7 +48,7 @@ export class Lines implements LinesLayer {
     sketch.stroke(utils.getColor(sketch, this.strokeColor));
     sketch.strokeWeight(this.strokeWeight);
     sketch.push();
-      sketch.translate(sketch.width/2, sketch.height/2);
+    sketch.translate(this.size / 2, this.size / 2);
       for (let i = 0; i < this.numLines; i++) {
         sketch.line(this.start * step, 0, this.end * step, 0);
         sketch.rotate(angle);
@@ -92,7 +92,7 @@ export class DottedLines implements DottedLinesLayer {
     sketch.fill(utils.getColor(sketch, this.fillColor));
     sketch.noStroke();
     sketch.push();
-      sketch.translate(sketch.width/2, sketch.height/2);
+      sketch.translate(this.size / 2, this.size / 2);
       for(let i = 0; i <= this.numLines; i++) {
         for(let x = this.centerOffset; x < this.size / 2; x += this.centerOffset) {
           sketch.ellipse(x, 0, this.dotSize, this.dotSize)

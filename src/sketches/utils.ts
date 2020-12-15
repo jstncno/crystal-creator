@@ -21,7 +21,7 @@ export function pointOnCircle(p5: p5, x: number, y: number, radius: number, angl
 
 export function chooseOne(sketch: p5, choices: any[], weights?: number[]) {
   if (weights && choices.length === weights.length) {
-    if (weights.reduce((a, b) => a + b) === 1) {
+    if ((Math.round(weights.reduce((a, b) => a + b)*1000))/1000 === 1) {
       const prob = sketch.random();
       let weight = 0;
       for (const i in weights) {

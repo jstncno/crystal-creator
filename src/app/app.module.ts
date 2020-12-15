@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
 import { CrystalModule } from './crystal/crystal.module';
+import { CrystalSheetModule } from './crystal-sheet/crystal-sheet.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CrystalModule } from './crystal/crystal.module';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     CrystalModule,
+    CrystalSheetModule,
     // Material design
     MatButtonModule,
     MatExpansionModule,

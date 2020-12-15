@@ -47,7 +47,7 @@ export class SteppedHexagons implements SteppedHexagonsLayer {
     sketch.stroke(utils.getColor(sketch, this.strokeColor));
     sketch.strokeWeight(this.strokeWeight);
     sketch.push();
-    sketch.translate(sketch.width/2, sketch.height/2);
+      sketch.translate(this.size / 2, this.size / 2);
       if (this.rotation) sketch.rotate(this.rotation)
       for (let i = 1; i <= this.steps; i++) {
         const r = sketch.floor(i * stepSize);

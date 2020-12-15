@@ -37,7 +37,7 @@ export class OutlineShape implements OutlineShapeLayer {
     sketch.stroke(utils.getColor(sketch, this.strokeColor));
     sketch.strokeWeight(this.strokeWeight);
     sketch.push();
-      sketch.translate(sketch.width/2, sketch.height/2);
+      sketch.translate(this.size / 2, this.size / 2);
       switch(this.shape) {
         case 'hexagon':
           shapes.hexagon(sketch, 0, 0, this.size / 2);

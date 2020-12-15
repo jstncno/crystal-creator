@@ -53,7 +53,7 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
     sketch.stroke(utils.getColor(sketch, this.strokeColor));
     sketch.strokeWeight(this.strokeWeight);
     sketch.push();
-      sketch.translate(sketch.width / 2, sketch.height / 2);
+      sketch.translate(this.size / 2, this.size / 2);
       sketch.rotate(this.rotation);
       switch (this.shape) {
         case 'hexagon':
@@ -63,7 +63,7 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
           sketch.ellipse(0, 0, this.shapeSize * 2, this.shapeSize * 2);
           break;
         case 'rect':
-          sketch.rect(0, 0, this.shapeSize * 2, this.shapeSize * 2);
+          sketch.rect(0, 0, this.shapeSize, this.shapeSize);
           break;
         case 'triangle':
         default:

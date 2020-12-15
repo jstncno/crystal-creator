@@ -30,7 +30,6 @@ export class Circles implements CirclesLayer {
 
   render = (sketch: p5) => {
     const halfSize = this.size / 2;
-    const eighth = this.size / 8;
     const sixteenth = this.size / 16;
     this.diameter = this.diameter ?? sketch.random(sixteenth, halfSize * 0.9);
     this.position = this.position ?? utils.chooseOne(sketch,
@@ -41,7 +40,7 @@ export class Circles implements CirclesLayer {
     sketch.stroke(utils.getColor(sketch, this.strokeColor));
     sketch.strokeWeight(this.strokeWeight);
     sketch.push();
-      sketch.translate(sketch.width/2, sketch.height/2);
+      sketch.translate(this.size / 2, this.size / 2);
       for (let i = 0; i < this.sides; i++) {
         sketch.ellipse(this.position, 0, this.diameter, this.diameter);
         sketch.rotate(angle);

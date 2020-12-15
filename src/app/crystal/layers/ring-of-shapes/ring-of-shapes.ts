@@ -56,7 +56,7 @@ export class RingOfShapes implements RingOfShapesLayer {
     sketch.stroke(utils.getColor(sketch, this.strokeColor));
     sketch.strokeWeight(this.strokeWeight);
     sketch.push();
-      sketch.translate(sketch.width/2, sketch.height/2);
+      sketch.translate(this.size / 2, this.size / 2);
       for (let i = 0; i < this.sides; i++) {
         shapes.drawShape(sketch, this.shapeSides, 0, this.center, this.radius, this.rotation);
         sketch.rotate(angle);

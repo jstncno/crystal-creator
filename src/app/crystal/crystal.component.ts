@@ -13,13 +13,13 @@ import { BroadcastService } from './broadcast.service';
 
 
 const LAYER_PROBABILITIES = [
-  {name: 'centered-shape', prob: 0.14},
+  {name: 'centered-shape', prob: 0.15},
   {name: 'circles', prob: 0.17},
   {name: 'lines', prob: 0.15},
-  {name: 'dotted-lines', prob: 0.15},
-  {name: 'outline-shape', prob: 0.07},
+  {name: 'dotted-lines', prob: 0.16},
+  {name: 'outline-shape', prob: 0.04},
   {name: 'ring-of-shapes', prob: 0.16},
-  {name: 'stepped-hexagons', prob: 0.16},
+  {name: 'stepped-hexagons', prob: 0.17},
 ];
 
 const AVAILABLE_LAYERS = LAYER_PROBABILITIES.map(l => l.name);
@@ -42,8 +42,9 @@ type SupportedLayer = Layer
 })
 export class CrystalComponent extends AbstractBaseSketch {
 
+  static readonly NUM_CRYSTALS_WIDTH = 10;
   static readonly CRYSTAL_SIDES = 6;
-  static readonly CRYSTAL_SIZE_PX = 500;
+  static readonly CRYSTAL_SIZE_PX: number = 500;
 
   @ViewChild('sketch')
   root: ElementRef;
@@ -63,7 +64,7 @@ export class CrystalComponent extends AbstractBaseSketch {
     '#3374AB', // Spanish Blue
   ];
 
-  constructor(private readonly broadcast: BroadcastService) {
+  constructor(protected readonly broadcast: BroadcastService) {
     super();
   }
 
@@ -76,7 +77,7 @@ export class CrystalComponent extends AbstractBaseSketch {
     this.noLoop();
     this.angleMode(this.DEGREES);
     this.rectMode(this.CENTER);
-    this.randomize(false /* redraw */);
+    this.randomize(/* redraw */ false);
   }
 
   draw = () => {
@@ -113,7 +114,7 @@ export class CrystalComponent extends AbstractBaseSketch {
     this.redraw();
   }
 
-  private createRenderableLayer(params: SupportedLayer): RenderableLayer {
+  protected createRenderableLayer(params: SupportedLayer): RenderableLayer {
     let layer: RenderableLayer;
     switch (params.name) {
       case 'centered-shape':
@@ -142,7 +143,7 @@ export class CrystalComponent extends AbstractBaseSketch {
     return layer;
   }
 
-  private randomLayerData(layerType?: string): Layer {
+  protected randomLayerData(layerType?: string): Layer {
     if (!layerType || !AVAILABLE_LAYERS.includes(layerType)) {
       layerType = utils.chooseOne(this, AVAILABLE_LAYERS, LAYER_WEIGHTS);
     }
