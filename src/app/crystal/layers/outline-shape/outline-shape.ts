@@ -30,7 +30,7 @@ export class OutlineShape implements OutlineShapeLayer {
   }
 
   render = (sketch: p5) => {
-    this.shape = this.shape ?? utils.chooseOne(sketch, ['hexagon', 'circle']);
+    this.setParams(sketch);
 
     if (this.fillColor) sketch.fill(utils.getColor(sketch, this.fillColor));
     else sketch.noFill();
@@ -48,5 +48,15 @@ export class OutlineShape implements OutlineShapeLayer {
           break;
       }
     sketch.pop();
+  };
+
+  resize = (size: number) => {
+    this.size = size;
+    return this;
+  };
+
+  setParams = (sketch: p5) => {
+    this.shape = this.shape ?? utils.chooseOne(sketch, ['hexagon', 'circle']);
+    return this;
   };
 }

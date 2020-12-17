@@ -42,15 +42,8 @@ export class RingOfShapes implements RingOfShapesLayer {
   }
 
   render = (sketch: p5) => {
-    const halfSize = this.size / 2;
-    const quarterSize = halfSize / 2;
-    const eighthSize = quarterSize / 2;
-    this.radius = this.radius ?? sketch.floor(
-      sketch.random(eighthSize, quarterSize));
-    this.center = this.center ?? sketch.floor(
-      sketch.random(this.radius, halfSize - this.radius));
+    this.setParams(sketch);
     const angle = 360 / this.sides;
-    this.shapeSides = this.shapeSides ?? sketch.floor(sketch.random(7));
 
     sketch.noFill();
     sketch.stroke(utils.getColor(sketch, this.strokeColor));
@@ -62,5 +55,24 @@ export class RingOfShapes implements RingOfShapesLayer {
         sketch.rotate(angle);
       }
     sketch.pop();
+  };
+
+  resize = (size: number) => {
+    this.radius = (this.radius / this.size) * size;
+    this.center = (this.center / this.size) * size;
+    this.size = size;
+    return this;
+  };
+
+  setParams = (sketch: p5) => {
+    const halfSize = this.size / 2;
+    const quarterSize = halfSize / 2;
+    const eighthSize = quarterSize / 2;
+    this.radius = this.radius ?? sketch.floor(
+      sketch.random(eighthSize, quarterSize));
+    this.center = this.center ?? sketch.floor(
+      sketch.random(this.radius, halfSize - this.radius));
+    this.shapeSides = this.shapeSides ?? sketch.floor(sketch.random(7));
+    return this;
   };
 }

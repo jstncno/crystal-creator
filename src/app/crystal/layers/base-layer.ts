@@ -11,4 +11,6 @@ export interface Layer {
 
 export interface RenderableLayer extends Layer {
   render: (sketch: p5) => void;
+  resize: (size: number) => RenderableLayer;
+  setParams: (sketch: p5) => RenderableLayer;
 }

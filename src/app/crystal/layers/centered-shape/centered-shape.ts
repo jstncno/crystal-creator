@@ -37,16 +37,11 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
     this.shapeSize = params?.shapeSize;
     this.stepsOut = params?.stepsOut ?? this.stepsOut;
     this.rotation = params?.rotation;
+
   }
 
   render = (sketch: p5) => {
-    this.shape = this.shape ?? utils.chooseOne(sketch,
-      ['hexagon', 'circle', 'rect', 'triangle']);
-    const step = (this.size / 2) / this.stepsOut;
-    this.shapeSize = this.shapeSize ?? sketch.floor(sketch.random(
-        this.stepsOut / 2, this.stepsOut)) * step;
-    this.rotation = this.rotation ??
-      utils.chooseOne(sketch, [0, 30, 45, 60, 90], [0.15, 0.3, 0.1, 0.15, 0.3]);
+    this.setParams(sketch);
 
     if (this.fillColor) sketch.fill(utils.getColor(sketch, this.fillColor));
     else sketch.noFill();
@@ -71,6 +66,24 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
           break;
       }
     sketch.pop();
+  };
+
+  resize = (size: number) => {
+    this.size = size;
+    // Recalculate on next draw
+    this.shapeSize = undefined;
+    return this;
+  };
+
+  setParams = (sketch: p5) => {
+    this.shape = this.shape ?? utils.chooseOne(sketch,
+      ['hexagon', 'circle', 'rect', 'triangle']);
+    const step = (this.size / 2) / this.stepsOut;
+    this.shapeSize = this.shapeSize ?? sketch.floor(sketch.random(
+        this.stepsOut / 2, this.stepsOut)) * step;
+    this.rotation = this.rotation ??
+      utils.chooseOne(sketch, [0, 30, 45, 60, 90], [0.15, 0.3, 0.1, 0.15, 0.3]);
+    return this;
   };
 }
 

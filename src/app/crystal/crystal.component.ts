@@ -25,9 +25,9 @@ export class CrystalComponent extends AbstractBaseSketch {
   }
   @Input()
   set layers(layers: RenderableLayer[]) {
-    const redraw = needsRedraw(this.layers_, layers);
+    const needsRedraw = areLayersDifferent(this.layers_, layers);
     this.layers_ = layers.map(params => createRenderableLayer(params));
-    if (redraw) this.redraw();
+    if (needsRedraw) this.redraw();
   }
 
   @Output()
@@ -56,20 +56,21 @@ export class CrystalComponent extends AbstractBaseSketch {
 }
 
 
-function needsRedraw(
+
+function areLayersDifferent(
   oldLayers: SupportedLayer[],
   newLayers: SupportedLayer[]): boolean {
   if (oldLayers.length !== newLayers.length) return true;
-  let redraw = false;
   for (const i in oldLayers) {
     const layer = oldLayers[i];
     const newLayer = newLayers[i];
     if (!layer || !newLayer) continue;
     const keys = new Set(Object.keys(layer).concat(Object.keys(newLayer)));
     for (const key of keys) {
-      if (key === 'render') continue;
-      if (layer[key] !== newLayer[key]) redraw = true;
+      if (typeof layer[key] === 'function' ||
+          typeof newLayer[key] === 'function') continue;
+      if (layer[key] !== newLayer[key]) return true;
     }
   }
-  return redraw;
+  return false;
 }

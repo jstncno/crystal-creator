@@ -3,12 +3,12 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CrystalComponent } from '@crystal-creator/crystal/crystal.component';
 import { CrystalEditorComponent } from '@crystal-creator/crystal/crystal-editor.component';
 
-import { Layer } from '@crystal-creator/crystal/layers/base-layer';
+import { Layer, RenderableLayer } from '@crystal-creator/crystal/layers/base-layer';
 import { createRenderableLayer } from '@crystal-creator/crystal/layers/utils';
 
 
 interface Crystal {
-  layers: Layer[];
+  layers: RenderableLayer[];
 }
 
 interface Point {
@@ -80,7 +80,7 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
         this.translate(x, y);
         if (col % 2 === 0) this.translate(0, -(CrystalSheetComponent.CRYSTAL_SIZE_PX / 2));
         this.translate(CrystalSheetComponent.GUTTER_PX, CrystalSheetComponent.GUTTER_PX);
-        const layers = [];
+        const layers: RenderableLayer[] = [];
         const numLayers = this.floor(this.random(2, 5));
         for (let i = 0; i < numLayers; i++) {
           const params = this.randomLayerData();
@@ -107,7 +107,7 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
       return;
     }
     const layers = crystal.layers.map(layer =>
-      Object.assign({}, layer, {size: CrystalComponent.CRYSTAL_SIZE_PX}));
+      layer.resize(CrystalComponent.CRYSTAL_SIZE_PX));
     this.selectedCrystal = {layers};
   }
 

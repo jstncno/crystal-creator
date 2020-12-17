@@ -39,8 +39,8 @@ export class SteppedHexagons implements SteppedHexagonsLayer {
   }
 
   render = (sketch: p5) => {
-    this.steps = this.steps ??
-      (sketch.floor(sketch.random(this.minSteps, this.maxSteps)));
+    this.setParams(sketch);
+
     const stepSize = ((this.size / 2) - this.centerOffset) / this.steps;
 
     sketch.noFill();
@@ -54,5 +54,16 @@ export class SteppedHexagons implements SteppedHexagonsLayer {
         shapes.hexagon(sketch, 0, 0, r);
       }
     sketch.pop();
+  };
+
+  resize = (size: number) => {
+    this.size = size;
+    return this;
+  };
+
+  setParams = (sketch: p5) => {
+    this.steps = this.steps ??
+      (sketch.floor(sketch.random(this.minSteps, this.maxSteps)));
+    return this;
   };
 }

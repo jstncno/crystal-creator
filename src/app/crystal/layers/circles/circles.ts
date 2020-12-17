@@ -29,11 +29,7 @@ export class Circles implements CirclesLayer {
   }
 
   render = (sketch: p5) => {
-    const halfSize = this.size / 2;
-    const sixteenth = this.size / 16;
-    this.diameter = this.diameter ?? sketch.random(sixteenth, halfSize * 0.9);
-    this.position = this.position ?? utils.chooseOne(sketch,
-      [this.diameter, halfSize-this.diameter, halfSize-(this.diameter/2)]);
+    this.setParams(sketch);
     const angle = 360 / this.sides;
 
     sketch.noFill();
@@ -46,5 +42,39 @@ export class Circles implements CirclesLayer {
         sketch.rotate(angle);
       }
     sketch.pop();
+  };
+
+  resize = (size: number) => {
+    const halfSize = size / 2;
+
+    const diameter = (this.diameter / this.size) * size;
+
+    let position = this.position;
+    switch (this.position){
+      case ((this.size/2)-(this.diameter/2)):
+        position = halfSize - (diameter/2);
+        break;
+      case ((this.size/2)-this.diameter):
+        position = halfSize - diameter;
+        break;
+      case this.diameter:
+      default:
+        position = diameter;
+        break;
+    }
+
+    this.diameter = diameter;
+    this.position = position;
+    this.size = size;
+    return this;
+  };
+
+  setParams = (sketch: p5) => {
+    const halfSize = this.size / 2;
+    const sixteenth = this.size / 16;
+    this.diameter = this.diameter ?? sketch.random(sixteenth, halfSize * 0.9);
+    this.position = this.position ?? utils.chooseOne(sketch,
+      [this.diameter, halfSize-this.diameter, halfSize-(this.diameter/2)]);
+    return this;
   };
 }

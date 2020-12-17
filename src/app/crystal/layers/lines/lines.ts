@@ -36,13 +36,9 @@ export class Lines implements LinesLayer {
   }
 
   render = (sketch: p5) => {
-    this.numLines = this.numLines ??
-      (sketch.floor(sketch.random(this.size / 2)));
+    this.setParams(sketch);
     const angle = 360 / this.numLines;
     const step = (this.size/2) / this.numSteps;
-    this.start = this.start ?? sketch.floor(sketch.random(0, this.numSteps));
-    this.end = this.end ??
-      sketch.floor(sketch.random(this.start, this.numSteps+1));
 
     sketch.noFill();
     sketch.stroke(utils.getColor(sketch, this.strokeColor));
@@ -54,6 +50,20 @@ export class Lines implements LinesLayer {
         sketch.rotate(angle);
       }
     sketch.pop();
+  };
+
+  resize = (size: number) => {
+    this.size = size;
+    return this;
+  };
+
+  setParams = (sketch: p5) => {
+    this.numLines = this.numLines ??
+      (sketch.floor(sketch.random(this.size / 2)));
+    this.start = this.start ?? sketch.floor(sketch.random(0, this.numSteps));
+    this.end = this.end ??
+      sketch.floor(sketch.random(this.start, this.numSteps+1));
+    return this;
   };
 }
 
@@ -85,8 +95,7 @@ export class DottedLines implements DottedLinesLayer {
   }
 
   render = (sketch: p5) => {
-    this.numLines = this.numLines ||
-      utils.coinFlip(sketch) ? this.sides : this.sides * 2;
+    this.setParams(sketch);
     const angle = 360 / this.numLines;
 
     sketch.fill(utils.getColor(sketch, this.fillColor));
@@ -100,5 +109,16 @@ export class DottedLines implements DottedLinesLayer {
         sketch.rotate(angle)
       }
     sketch.pop();
+  };
+
+  resize = (size: number) => {
+    this.size = size;
+    return this;
+  };
+
+  setParams = (sketch: p5) => {
+    this.numLines = this.numLines ||
+      utils.coinFlip(sketch) ? this.sides : this.sides * 2;
+    return this;
   };
 }
