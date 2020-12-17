@@ -69,9 +69,9 @@ export class CenteredShape implements CenteredShapeLayer, RenderableLayer {
   };
 
   resize = (size: number) => {
+    this.shapeSize = (this.shapeSize * size) / this.size;
+    this.strokeWeight = (this.strokeWeight * size) / this.size;
     this.size = size;
-    // Recalculate on next draw
-    this.shapeSize = undefined;
     return this;
   };
 

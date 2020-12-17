@@ -9,12 +9,12 @@ import { SupportedLayer, createRenderableLayer } from './layers/utils';
 
 
 const LAYER_PROBABILITIES = [
-  {name: 'centered-shape', prob: 0.15},
-  {name: 'circles', prob: 0.17},
-  {name: 'lines', prob: 0.15},
+  {name: 'centered-shape', prob: 0.09},
+  {name: 'circles', prob: 0.19},
+  {name: 'lines', prob: 0.17},
   {name: 'dotted-lines', prob: 0.16},
   {name: 'outline-shape', prob: 0.04},
-  {name: 'ring-of-shapes', prob: 0.16},
+  {name: 'ring-of-shapes', prob: 0.18},
   {name: 'stepped-hexagons', prob: 0.17},
 ];
 

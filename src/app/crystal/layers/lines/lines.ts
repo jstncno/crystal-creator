@@ -53,7 +53,7 @@ export class Lines implements LinesLayer {
   };
 
   resize = (size: number) => {
-    this.strokeWeight = (this.strokeWeight / this.size) * size;
+    this.strokeWeight = (this.strokeWeight * size) / this.size;
     this.size = size;
     return this;
   };
@@ -113,10 +113,9 @@ export class DottedLines implements DottedLinesLayer {
   };
 
   resize = (size: number) => {
-    this.dotSize = (this.dotSize / this.size) * size;
+    this.dotSize = (this.dotSize * size) / this.size;
+    this.centerOffset = (this.centerOffset * size) / this.size;
     this.size = size;
-    // Recalculate on next draw
-    this.centerOffset = undefined;
     return this;
   };
 

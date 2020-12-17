@@ -57,7 +57,7 @@ export class SteppedHexagons implements SteppedHexagonsLayer {
   };
 
   resize = (size: number) => {
-    this.strokeWeight = (this.strokeWeight / this.size) * size;
+    this.strokeWeight = (this.strokeWeight * size) / this.size;
     this.size = size;
     return this;
   };

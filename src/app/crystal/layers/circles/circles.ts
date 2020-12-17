@@ -47,7 +47,7 @@ export class Circles implements CirclesLayer {
   resize = (size: number) => {
     const halfSize = size / 2;
 
-    const diameter = (this.diameter / this.size) * size;
+    const diameter = (this.diameter * size) / this.size;
 
     let position = this.position;
     switch (this.position){
@@ -65,7 +65,7 @@ export class Circles implements CirclesLayer {
 
     this.diameter = diameter;
     this.position = position;
-    this.strokeWeight = (this.strokeWeight / this.size) * size;
+    this.strokeWeight = (this.strokeWeight * size) / this.size;
     this.size = size;
     return this;
   };
