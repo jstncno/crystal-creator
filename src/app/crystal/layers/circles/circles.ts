@@ -76,6 +76,10 @@ export class Circles implements CirclesLayer {
     this.diameter = this.diameter ?? sketch.random(sixteenth, halfSize * 0.9);
     this.position = this.position ?? utils.chooseOne(sketch,
       [this.diameter, halfSize-this.diameter, halfSize-(this.diameter/2)]);
+
+    const delta = (this.position + this.diameter) - halfSize;
+    if (delta > 0) this.position -= delta;
+
     return this;
   };
 }
