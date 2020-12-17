@@ -38,8 +38,8 @@ export class CrystalComponent extends AbstractBaseSketch {
   }
 
   setup() {
-    const sizeWithBuffer = CrystalComponent.CRYSTAL_SIZE_PX * 1.06;
-    const canvas = this.createCanvas(sizeWithBuffer, sizeWithBuffer);
+    const canvas = this.createCanvas(CrystalComponent.CRYSTAL_SIZE_PX,
+      CrystalComponent.CRYSTAL_SIZE_PX);
     if (this.root) canvas.parent(this.root.nativeElement);
     this.noLoop();
     this.angleMode(this.DEGREES);
