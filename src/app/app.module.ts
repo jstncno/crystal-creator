@@ -8,9 +8,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
 import { CrystalModule } from './crystal/crystal.module';
 import { CrystalSheetModule } from './crystal-sheet/crystal-sheet.module';
 
@@ -22,6 +22,7 @@ import { CrystalSheetModule } from './crystal-sheet/crystal-sheet.module';
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    AppRoutingModule,
     CrystalModule,
     CrystalSheetModule,
     // Material design
@@ -31,7 +32,6 @@ import { CrystalSheetModule } from './crystal-sheet/crystal-sheet.module';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
