@@ -1,10 +1,9 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 import { AbstractBaseSketch } from '@crystal-creator/p5/base';
-import { RenderableLayer } from '@crystal-creator/crystal/layers/base-layer';
 
-import { BroadcastService } from './broadcast.service';
-import { createRenderableLayer } from './layers/utils';
+import { RenderableLayer } from './layers/base-layer';
+import { createRenderableLayer, SupportedLayer } from './layers/utils';
 
 
 @Component({
@@ -24,14 +23,17 @@ export class CrystalComponent extends AbstractBaseSketch {
   get layers(): RenderableLayer[] {
     return this.layers_;
   }
-
   @Input()
   set layers(layers: RenderableLayer[]) {
-    this.layers_ = [...layers];
-    this.redraw();
+    const redraw = needsRedraw(this.layers_, layers);
+    this.layers_ = layers.map(params => createRenderableLayer(params));
+    if (redraw) this.redraw();
   }
 
-  constructor(protected readonly broadcast: BroadcastService) {
+  @Output()
+  layersChange = new EventEmitter<SupportedLayer[]>();
+
+  constructor() {
     super();
   }
 
@@ -45,15 +47,29 @@ export class CrystalComponent extends AbstractBaseSketch {
   }
 
   draw = () => {
-    this.layers.map(params => createRenderableLayer(params))
-      .forEach(layer => layer.render(this));
-    this.broadcast.onDraw.next();
+    this.layers = this.layers.map(layer => {
+      layer.render(this);
+      return layer;
+    });
+    this.layersChange.emit(this.layers);
   };
+}
 
-  redraw() {
-    try {
-      this.clear();
-      super.redraw();
-    } catch {}
+
+function needsRedraw(
+  oldLayers: SupportedLayer[],
+  newLayers: SupportedLayer[]): boolean {
+  if (oldLayers.length !== newLayers.length) return true;
+  let redraw = false;
+  for (const i in oldLayers) {
+    const layer = oldLayers[i];
+    const newLayer = newLayers[i];
+    if (!layer || !newLayer) continue;
+    const keys = new Set(Object.keys(layer).concat(Object.keys(newLayer)));
+    for (const key of keys) {
+      if (key === 'render') continue;
+      if (layer[key] !== newLayer[key]) redraw = true;
+    }
   }
+  return redraw;
 }

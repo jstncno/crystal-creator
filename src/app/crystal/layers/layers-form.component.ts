@@ -20,9 +20,6 @@ export class LayersFormComponent implements OnInit {
   addLayerPress = new EventEmitter<void>();
 
   @Output()
-  layersReordered = new EventEmitter<void>();
-
-  @Output()
   randomizeLayerData = new EventEmitter<number>();
 
   lastOpenIndex: number = 0;
@@ -55,6 +52,6 @@ export class LayersFormComponent implements OnInit {
     if (event.previousContainer !== event.container) return;
     moveItemInArray(event.container.data, event.previousIndex,
       event.currentIndex);
-    this.layersReordered.emit();
+    this.layersChange.emit(this.layers);
   }
 }

@@ -7,16 +7,15 @@
     <button mat-raised-button color="accent" (click)="randomize()">
       Randomize
     </button>
-    <cc-crystal [layers]="layers"></cc-crystal>
+    <cc-crystal [(layers)]="layers"></cc-crystal>
   </div>
   <div class="col">
     <button mat-raised-button color="accent" (click)="redraw()">
       Redraw
     </button>
     <cc-layers-form [layers]="layers"
-      (layersChange)="redraw()"
+      (layersChange)="layersChange($event)"
       (addLayerPress)="addLayer()"
-      (layersReordered)="redraw()"
       (randomizeLayerData)="randomizeLayer($event)">
     </cc-layers-form>
   </div>

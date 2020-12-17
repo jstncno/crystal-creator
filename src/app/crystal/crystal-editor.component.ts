@@ -1,11 +1,11 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 import { AbstractBaseSketch } from '@crystal-creator/p5/base';
 import { Layer } from '@crystal-creator/crystal/layers/base-layer';
 import * as utils from '@crystal-creator/p5/utils';
 import { BroadcastService } from './broadcast.service';
 import { CrystalComponent } from './crystal.component';
-import { SupportedLayer } from './layers/utils';
+import { SupportedLayer, createRenderableLayer } from './layers/utils';
 
 
 const LAYER_PROBABILITIES = [
@@ -36,10 +36,8 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
   get layers(): SupportedLayer[] {
     return this.layers_;
   }
-
-  @Input()
   set layers(layers: SupportedLayer[]) {
-    this.layers_ = [...layers];
+    this.layers_ = layers.map(params => createRenderableLayer(params));
   }
 
   palette: string[] = [
@@ -62,10 +60,16 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
 
   randomize() {
     const numLayers = this.floor(this.random(3, 6));
-    this.layers = [];
+    const layers = [];
     for (let i = 0; i < numLayers; i++) {
-      this.layers.push(this.randomLayerData());
+      const layer = this.randomLayerData();
+      layers.push(layer);
     }
+    this.layers = [...layers];
+  }
+
+  layersChange(layers: SupportedLayer[]) {
+    this.layers = [...layers];
   }
 
   addLayer() {
@@ -73,8 +77,10 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
   }
 
   randomizeLayer(index: number) {
-    if (index < 0 || index >= this.layers_.length) return;
-    this.layers_[index] = this.randomLayerData(this.layers_[index].name);
+    if (index < 0 || index >= this.layers.length) return;
+    const layers = [...this.layers];
+    layers[index] = this.randomLayerData(layers[index].name);
+    this.layers = [...layers];
   }
 
   protected randomLayerData(layerType?: string): Layer {
