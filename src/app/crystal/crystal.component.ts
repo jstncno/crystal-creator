@@ -1,39 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 import { AbstractBaseSketch } from '@crystal-creator/p5/base';
-import { Layer, RenderableLayer } from '@crystal-creator/crystal/layers/base-layer';
-import { CenteredShapeLayer, CenteredShape } from '@crystal-creator/crystal/layers/centered-shape/centered-shape';
-import { CirclesLayer, Circles } from '@crystal-creator/crystal/layers/circles/circles';
-import { DottedLinesLayer, DottedLines, LinesLayer, Lines } from '@crystal-creator/crystal/layers/lines/lines';
-import { OutlineShapeLayer, OutlineShape } from '@crystal-creator/crystal/layers/outline-shape/outline-shape';
-import { RingOfShapesLayer, RingOfShapes } from '@crystal-creator/crystal/layers/ring-of-shapes/ring-of-shapes';
-import { SteppedHexagonsLayer, SteppedHexagons } from '@crystal-creator/crystal/layers/stepped-hexagons/stepped-hexagons';
-import * as utils from '@crystal-creator/p5/utils';
+import { RenderableLayer } from '@crystal-creator/crystal/layers/base-layer';
+
 import { BroadcastService } from './broadcast.service';
+import { createRenderableLayer } from './layers/utils';
 
-
-const LAYER_PROBABILITIES = [
-  {name: 'centered-shape', prob: 0.15},
-  {name: 'circles', prob: 0.17},
-  {name: 'lines', prob: 0.15},
-  {name: 'dotted-lines', prob: 0.16},
-  {name: 'outline-shape', prob: 0.04},
-  {name: 'ring-of-shapes', prob: 0.16},
-  {name: 'stepped-hexagons', prob: 0.17},
-];
-
-const AVAILABLE_LAYERS = LAYER_PROBABILITIES.map(l => l.name);
-const LAYER_WEIGHTS = LAYER_PROBABILITIES.map(l => l.prob);
-
-
-type SupportedLayer = Layer
-  | CenteredShapeLayer
-  | CirclesLayer
-  | DottedLinesLayer
-  | LinesLayer
-  | OutlineShapeLayer
-  | RingOfShapesLayer
-  | SteppedHexagonsLayer;
 
 @Component({
   selector: 'cc-crystal',
@@ -42,118 +14,46 @@ type SupportedLayer = Layer
 })
 export class CrystalComponent extends AbstractBaseSketch {
 
-  static readonly NUM_CRYSTALS_WIDTH = 10;
-  static readonly CRYSTAL_SIDES = 6;
   static readonly CRYSTAL_SIZE_PX: number = 500;
+  static readonly CRYSTAL_SIDES = 6;
 
   @ViewChild('sketch')
   root: ElementRef;
 
-  private layers_: SupportedLayer[] = [];
-  get layers(): SupportedLayer[] {
+  private layers_: RenderableLayer[] = [];
+  get layers(): RenderableLayer[] {
     return this.layers_;
   }
 
-  set layers(layers: SupportedLayer[]) {
+  @Input()
+  set layers(layers: RenderableLayer[]) {
     this.layers_ = [...layers];
     this.redraw();
   }
-
-  palette: string[] = [
-    '#694873', // English Violet
-    '#3374AB', // Spanish Blue
-  ];
 
   constructor(protected readonly broadcast: BroadcastService) {
     super();
   }
 
-  ngOnInit(): void {}
-
   setup() {
     const sizeWithBuffer = CrystalComponent.CRYSTAL_SIZE_PX * 1.06;
     const canvas = this.createCanvas(sizeWithBuffer, sizeWithBuffer);
-    canvas.parent(this.root.nativeElement);
+    if (this.root) canvas.parent(this.root.nativeElement);
     this.noLoop();
     this.angleMode(this.DEGREES);
     this.rectMode(this.CENTER);
-    this.randomize(/* redraw */ false);
   }
 
   draw = () => {
-    this.layers_ = this.layers_.map(params => {
-      const layer = this.createRenderableLayer(params);
-      layer.render(this);
-      return layer;
-    });
+    this.layers.map(params => createRenderableLayer(params))
+      .forEach(layer => layer.render(this));
     this.broadcast.onDraw.next();
   };
 
   redraw() {
-    this.clear();
-    super.redraw();
-  }
-
-  randomize(redraw: boolean = true) {
-    const numLayers = this.floor(this.random(3, 6));
-    this.layers = [];
-    for (let i = 0; i < numLayers; i++) {
-      this.layers.push(this.randomLayerData());
-    }
-    if (redraw) this.redraw();
-  }
-
-  addLayer() {
-    this.layers.push(this.randomLayerData());
-    this.redraw();
-  }
-
-  randomizeLayer(index: number) {
-    if (index < 0 || index >= this.layers_.length) return;
-    this.layers_[index] = this.randomLayerData(this.layers_[index].name);
-    this.redraw();
-  }
-
-  protected createRenderableLayer(params: SupportedLayer): RenderableLayer {
-    let layer: RenderableLayer;
-    switch (params.name) {
-      case 'centered-shape':
-        layer = new CenteredShape(params);
-        break;
-      case 'circles':
-        layer = new Circles(params);
-        break;
-      case 'lines':
-        layer = new Lines(params);
-        break;
-      case 'dotted-lines':
-        layer = new DottedLines(params);
-        break;
-      case 'outline-shape':
-        layer = new OutlineShape(params as OutlineShapeLayer);
-        break;
-      case 'ring-of-shapes':
-        layer = new RingOfShapes(params);
-        break;
-      case 'stepped-hexagons':
-      default:
-        layer = new SteppedHexagons(params);
-        break;
-    }
-    return layer;
-  }
-
-  protected randomLayerData(layerType?: string): Layer {
-    if (!layerType || !AVAILABLE_LAYERS.includes(layerType)) {
-      layerType = utils.chooseOne(this, AVAILABLE_LAYERS, LAYER_WEIGHTS);
-    }
-    return {
-      name: layerType,
-      size: CrystalComponent.CRYSTAL_SIZE_PX,
-      sides: CrystalComponent.CRYSTAL_SIDES,
-      strokeColor: utils.chooseOne(this, this.palette),
-      strokeWeight: utils.chooseOne(this, [1, 3]),
-      fillColor: utils.chooseOne(this, this.palette),
-    };
+    try {
+      this.clear();
+      super.redraw();
+    } catch {}
   }
 }

@@ -3,5 +3,12 @@
 </button>
 
 <div class="sketch-container">
-  <div id="sketch-holder" #sketch></div>
+  <div id="sketch-sheet" #sketchSheet></div>
+</div>
+
+
+<div [ngClass]="{'hidden': !showPreview}" class="dialog">
+  <div class="crystal-container">
+    <cc-crystal [layers]="selectedCrystal.layers"></cc-crystal>
+  </div>
 </div>

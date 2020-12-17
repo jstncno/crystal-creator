@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import { CrystalComponent } from './crystal/crystal.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CrystalEditorComponent } from './crystal/crystal-editor.component';
 import { CrystalSheetComponent } from './crystal-sheet/crystal-sheet.component';
 
 const routes: Routes = [
@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'editor',
-    component: CrystalComponent,
+    component: CrystalEditorComponent,
   },
 ];
 

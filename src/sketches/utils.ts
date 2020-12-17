@@ -4,13 +4,13 @@ export function coinFlip(p5: p5): boolean {
   return p5.random([true, false]);
 }
 
-export function getColor(sketch: p5, param: number[]|string): p5.Color {
+export function getColor(p5: p5, param: number[]|string): p5.Color {
   if (Array.isArray(param)) {
-    return sketch.color(param);
+    return p5.color(param);
   } else if (typeof(param) === 'string') {
-    return sketch.color(param);
+    return p5.color(param);
   }
-  return sketch.color(param);
+  return p5.color(param);
 }
 
 export function pointOnCircle(p5: p5, x: number, y: number, radius: number, angle: number) {

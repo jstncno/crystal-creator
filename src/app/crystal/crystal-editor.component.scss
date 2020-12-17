@@ -1,0 +1,21 @@
+:host {
+  width: 100%;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: auto;
+    max-width: 95%;
+
+    @media only screen and (min-width: 768px) {
+      max-width: 85%;
+    }
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      margin: 0 25px;
+    }
+  }
+}

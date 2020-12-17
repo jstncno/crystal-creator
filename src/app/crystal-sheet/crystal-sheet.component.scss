@@ -1,6 +1,46 @@
-button {
-  bottom: 10%;
-  left: calc(calc(100% / 2) - 150px);
-  position: absolute;
-  width: 300px;
+@import '~@angular/material/theming';
+@import '/src/theme.scss';
+
+:host {
+  button {
+    bottom: 10%;
+    left: calc(calc(100% / 2) - 150px);
+    position: absolute;
+    width: 300px;
+  }
+
+  .sketch-container {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .dialog {
+    background-color: rgb(0 0 0 / 0.4);
+    display: flex;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    text-align: center;
+    transition-duration: 1s;
+    width: 100%;
+
+    &.hidden {
+      opacity: 0;
+    }
+
+    .crystal-container {
+      background-color: $baby-powder;
+      border-radius: 15px;
+      display: flex;
+      margin: auto;
+      z-index: 1;
+
+      cc-crystal {
+        margin: auto;
+        // Fix alignment
+        transform: translate(15px, 15px);
+      }
+    }
+  }
 }

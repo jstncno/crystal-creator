@@ -5,11 +5,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { CrystalComponent } from './crystal.component';
+import { CrystalEditorComponent } from './crystal-editor.component';
 import { ColorPaletteModule } from './color-palette/color-palette.module';
 import { LayersModule } from './layers/layers.module';
 
 @NgModule({
-  declarations: [CrystalComponent],
+  declarations: [
+    CrystalComponent,
+    CrystalEditorComponent,
+    CrystalComponent,
+  ],
   imports: [
     CommonModule,
     ColorPaletteModule,
@@ -21,6 +26,7 @@ import { LayersModule } from './layers/layers.module';
   ],
   exports: [
     CrystalComponent,
+    CrystalEditorComponent,
     ColorPaletteModule,
     LayersModule,
   ],
