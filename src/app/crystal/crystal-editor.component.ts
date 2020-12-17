@@ -70,13 +70,11 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
 
   addLayer() {
     this.layers.push(this.randomLayerData());
-    this.redraw();
   }
 
   randomizeLayer(index: number) {
     if (index < 0 || index >= this.layers_.length) return;
     this.layers_[index] = this.randomLayerData(this.layers_[index].name);
-    this.redraw();
   }
 
   protected randomLayerData(layerType?: string): Layer {

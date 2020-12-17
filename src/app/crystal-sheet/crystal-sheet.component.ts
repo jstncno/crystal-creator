@@ -38,6 +38,7 @@ const newBounds = (x, y, size): Bounds => ({
 export class CrystalSheetComponent extends CrystalEditorComponent {
 
   static readonly CANVAS_HEIGHT_PX = window.innerHeight
+  static readonly CANVAS_ID = 'canvas-sheet';
   static readonly CANVAS_WIDTH_PX = window.innerWidth;
   static readonly GUTTER_PX = 5;
 
@@ -63,12 +64,14 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
       CrystalSheetComponent.GUTTER_PX;
     const canvas = this.createCanvas(width, height);
     canvas.parent(this.root.nativeElement);
+    canvas.id(CrystalSheetComponent.CANVAS_ID);
     this.noLoop();
     this.angleMode(this.DEGREES);
     this.rectMode(this.CENTER);
   }
 
   draw = () => {
+    this.bounds.clear();
     for (let col = 0; (col*CrystalSheetComponent.CRYSTAL_SIZE_PX) < CrystalSheetComponent.CANVAS_WIDTH_PX-CrystalSheetComponent.CRYSTAL_SIZE_PX; col++) {
       let x = (col*(CrystalSheetComponent.CRYSTAL_SIZE_PX+CrystalSheetComponent.GUTTER_PX));
       for (let row = 0; (row*CrystalSheetComponent.CRYSTAL_SIZE_PX) < CrystalSheetComponent.CANVAS_HEIGHT_PX+CrystalSheetComponent.CRYSTAL_SIZE_PX; row++) {
@@ -93,14 +96,24 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
   };
 
   mousePressed() {
+    const el = document.elementFromPoint(this.mouseX, this.mouseY);
+    if (el && el.id !== CrystalSheetComponent.CANVAS_ID) {
+      this.closeDialog();
+      return;
+    }
     const crystal = this.findCrystalAtPoint({x: this.mouseX, y: this.mouseY});
     if (!crystal) {
-      this.selectedCrystal = {layers: []};
+      this.closeDialog();
       return;
     }
     const layers = crystal.layers.map(layer =>
       Object.assign({}, layer, {size: CrystalComponent.CRYSTAL_SIZE_PX}));
     this.selectedCrystal = {layers};
+  }
+
+  randomize() {
+    super.randomize();
+    this.redraw();
   }
 
   protected randomLayerData(layerType?: string): Layer {
@@ -126,5 +139,9 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
     if (x < bottomLeft.x || x > bottomRight.x) return false;
     if (y > bottomLeft.y || y > bottomRight.y) return false;
     return true;
+  }
+
+  private closeDialog() {
+    this.selectedCrystal = {layers: []};
   }
 }

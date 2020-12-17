@@ -10,6 +10,13 @@ export class AbstractBaseSketch extends p5 {
   draw = (): void => {
     throw '.draw() is an abstract class';
   }
+
+  redraw() {
+    try {
+      this.clear();
+      super.redraw();
+    } catch {}
+  }
 }
 
 export interface Sketch extends AbstractBaseSketch {}
