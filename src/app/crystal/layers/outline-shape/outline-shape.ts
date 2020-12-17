@@ -51,6 +51,7 @@ export class OutlineShape implements OutlineShapeLayer {
   };
 
   resize = (size: number) => {
+    this.strokeWeight = (this.strokeWeight / this.size) * size;
     this.size = size;
     return this;
   };

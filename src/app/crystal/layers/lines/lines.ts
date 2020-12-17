@@ -53,6 +53,7 @@ export class Lines implements LinesLayer {
   };
 
   resize = (size: number) => {
+    this.strokeWeight = (this.strokeWeight / this.size) * size;
     this.size = size;
     return this;
   };
@@ -91,7 +92,7 @@ export class DottedLines implements DottedLinesLayer {
 
     this.numLines = params?.numLines;
     this.dotSize = params?.dotSize ?? this.dotSize;
-    this.centerOffset = params?.centerOffset ?? this.size / 16;
+    this.centerOffset = params?.centerOffset;
   }
 
   render = (sketch: p5) => {
@@ -112,13 +113,17 @@ export class DottedLines implements DottedLinesLayer {
   };
 
   resize = (size: number) => {
+    this.dotSize = (this.dotSize / this.size) * size;
     this.size = size;
+    // Recalculate on next draw
+    this.centerOffset = undefined;
     return this;
   };
 
   setParams = (sketch: p5) => {
-    this.numLines = this.numLines ||
-      utils.coinFlip(sketch) ? this.sides : this.sides * 2;
+    this.centerOffset = this.centerOffset ?? this.size / 16;
+    this.numLines = this.numLines ??
+      utils.chooseOne(sketch, [this.sides, this.sides * 2]);
     return this;
   };
 }

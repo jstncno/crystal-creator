@@ -65,6 +65,7 @@ export class Circles implements CirclesLayer {
 
     this.diameter = diameter;
     this.position = position;
+    this.strokeWeight = (this.strokeWeight / this.size) * size;
     this.size = size;
     return this;
   };

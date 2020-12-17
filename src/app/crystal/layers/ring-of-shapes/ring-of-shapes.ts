@@ -58,6 +58,7 @@ export class RingOfShapes implements RingOfShapesLayer {
   };
 
   resize = (size: number) => {
+    this.strokeWeight = (this.strokeWeight / this.size) * size;
     this.radius = (this.radius / this.size) * size;
     this.center = (this.center / this.size) * size;
     this.size = size;
