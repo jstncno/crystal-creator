@@ -1,11 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CrystalComponent } from '@crystal-creator/crystal/crystal.component';
 import { CrystalEditorComponent } from '@crystal-creator/crystal/crystal-editor.component';
 
 import { Layer, RenderableLayer } from '@crystal-creator/crystal/layers/base-layer';
 import { createRenderableLayer } from '@crystal-creator/crystal/layers/utils';
-import { Router } from '@angular/router';
 
 
 interface Crystal {
@@ -40,6 +40,7 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
 
   static readonly CANVAS_HEIGHT_PX = window.innerHeight
   static readonly CANVAS_ID = 'canvas-sheet';
+  static readonly EDIT_BUTTON_ID = 'edit-button';
   static readonly CANVAS_WIDTH_PX = window.innerWidth;
   static readonly GUTTER_PX = 5;
 
@@ -58,8 +59,10 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
 
   private bounds = new Map<Bounds, Crystal>();
 
-  constructor(private readonly router: Router) {
-    super();
+  constructor(
+    protected readonly route: ActivatedRoute,
+    private readonly router: Router) {
+    super(route);
   }
 
   setup() {
@@ -102,9 +105,12 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
 
   mousePressed() {
     const el = document.elementFromPoint(this.mouseX, this.mouseY);
-    if (el && el.id !== CrystalSheetComponent.CANVAS_ID) {
-      this.closeDialog();
-      return;
+    if (el) {
+      if (el.id === CrystalSheetComponent.EDIT_BUTTON_ID) return;
+      else if (el.id !== CrystalSheetComponent.CANVAS_ID) {
+        this.closeDialog();
+        return;
+      }
     }
     const crystal = this.findCrystalAtPoint({x: this.mouseX, y: this.mouseY});
     if (!crystal) {
@@ -122,7 +128,12 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
   }
 
   switchToEditMode() {
-    this.router.navigate(['/editor']);
+    const {layers} = this.selectedCrystal;
+    this.router.navigate(['/editor'], {
+      queryParams: {
+        layers: JSON.stringify(layers),
+      },
+    });
   }
 
   protected randomLayerData(layerType?: string): Layer {

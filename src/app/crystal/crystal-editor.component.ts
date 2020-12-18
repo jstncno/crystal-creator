@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { AbstractBaseSketch } from '@crystal-creator/p5/base';
 import { Layer } from '@crystal-creator/crystal/layers/base-layer';
@@ -44,12 +45,16 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
     '#3374AB', // Spanish Blue
   ];
 
-  constructor() {
+  constructor(protected readonly route: ActivatedRoute) {
     super();
   }
 
   ngOnInit() {
-    this.randomize()
+    this.randomize();
+    this.route.queryParams.subscribe(params => {
+      const {layers} = params;
+      if (layers) this.layers = JSON.parse(layers);
+    });
   }
 
   draw = () => {
