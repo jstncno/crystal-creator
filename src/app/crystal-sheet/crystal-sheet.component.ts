@@ -61,8 +61,8 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
 
   constructor(
     protected readonly route: ActivatedRoute,
-    private readonly router: Router) {
-    super(route);
+    protected readonly router: Router) {
+    super(route, router);
   }
 
   setup() {
@@ -71,6 +71,7 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
     const height = CrystalSheetComponent.CANVAS_HEIGHT_PX +
       CrystalSheetComponent.GUTTER_PX;
     const canvas = this.createCanvas(width, height);
+    if (!this.root) return location.reload();
     canvas.parent(this.root.nativeElement);
     canvas.id(CrystalSheetComponent.CANVAS_ID);
     this.noLoop();

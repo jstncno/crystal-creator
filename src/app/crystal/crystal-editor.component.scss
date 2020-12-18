@@ -1,5 +1,16 @@
+@import '~@angular/material/theming';
+@import '/src/theme.scss';
+
 :host {
   width: 100%;
+
+  mat-toolbar {
+    button {
+      mat-icon {
+        color: $english-violet;
+      }
+    }
+  }
 
   .row {
     display: flex;

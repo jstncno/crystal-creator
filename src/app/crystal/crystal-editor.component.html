@@ -1,4 +1,8 @@
-<mat-toolbar color="primary"></mat-toolbar>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="navBack()">
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+</mat-toolbar>
 <div class="row">
   <div class="col">
     <cc-color-palette-form [(colors)]="palette"></cc-color-palette-form>

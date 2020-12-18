@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AbstractBaseSketch } from '@crystal-creator/p5/base';
 import { Layer } from '@crystal-creator/crystal/layers/base-layer';
@@ -45,7 +45,9 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
     '#3374AB', // Spanish Blue
   ];
 
-  constructor(protected readonly route: ActivatedRoute) {
+  constructor(
+    protected readonly route: ActivatedRoute,
+    protected readonly router: Router) {
     super();
   }
 
@@ -85,6 +87,10 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
     const layers = [...this.layers];
     layers[index] = this.randomLayerData(layers[index].name);
     this.layers = [...layers];
+  }
+
+  navBack() {
+    this.router.navigate(['/']);
   }
 
   protected randomLayerData(layerType?: string): Layer {

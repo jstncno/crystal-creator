@@ -11,7 +11,8 @@
 <div [ngClass]="{'hidden': !showPreview}" class="dialog">
   <div class="crystal-container">
     <cc-crystal [layers]="selectedCrystal.layers"></cc-crystal>
-    <button id="edit-button" mat-raised-button color="accent" (click)="switchToEditMode()">
+    <button id="edit-button" mat-raised-button color="accent"
+      (click)="switchToEditMode()">
       Edit
     </button>
   </div>
