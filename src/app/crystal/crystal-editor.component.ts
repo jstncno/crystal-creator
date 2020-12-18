@@ -90,7 +90,7 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
   }
 
   navBack() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/'], {queryParams: {hideInfo: true}});
   }
 
   protected randomLayerData(layerType?: string): Layer {

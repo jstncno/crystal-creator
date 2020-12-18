@@ -2,16 +2,46 @@
 @import '/src/theme.scss';
 
 :host {
-  button.randomize-button {
-    bottom: 10%;
-    left: calc(calc(100% / 2) - 150px);
-    position: absolute;
-    width: 300px;
-  }
-
   .sketch-container {
     height: 100vh;
     overflow: hidden;
+  }
+
+  .menu {
+    background-color: $baby-powder;
+    border-bottom-left-radius: 7px;
+    border-top-left-radius: 7px;
+    box-shadow: -1px 4px 25px rgb(161 150 128);
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    position: absolute;
+    right: 0;
+    bottom: 10vh;
+    z-index: 10;
+
+    button {
+      $size: 30px;
+
+      height: $size;
+      margin: 4px 0;
+      width: $size;
+
+      mat-icon {
+        font-size: 18px;
+        line-height: 10px;
+      }
+
+      &.randomize-button {
+        color: $baby-powder;
+        background-color: $upsdell-red;
+      }
+
+      &.info-button {
+        color: $baby-powder;
+        background-color: $davys-gray;
+      }
+    }
   }
 
   .dialog {
@@ -34,7 +64,7 @@
 
     .crystal-container {
       background-color: $baby-powder;
-      border-radius: 15px;
+      border-radius: 7px;
       display: flex;
       flex-direction: column;
       margin: auto;

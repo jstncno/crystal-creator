@@ -1,4 +1,3 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -34,13 +33,33 @@ $p5js-sticker-generator-theme: mat-light-theme((
 // that you are using.
 @include angular-material-theme($p5js-sticker-generator-theme);
 
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+@import url('https://fonts.googleapis.com/css2?family=Monoton&family=Montserrat:wght@400;700&display=swap');
+$cc-typography: mat-typography-config(
+  $font-family: '"Montserrat", sans-serif',
+  $body-1: mat-typography-level(16px, 24px, 500),
+);
+// Override the typography in the core CSS.
+@include mat-core($cc-typography);
+
+h1,
+h2,
+h3,
+.display {
+  font-family: 'Monoton' !important;
+}
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
 body {
   background-color: $baby-powder;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
   margin: 0;
+}
+
+a {
+  color: $upsdell-red;
 }
 
 .color-option-container {

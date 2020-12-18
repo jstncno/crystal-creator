@@ -1,0 +1,167 @@
+@import '~@angular/material/theming';
+@import '/src/theme.scss';
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:host {
+  color: $english-violet;
+  height: 100%;
+  width: 100%;
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      ". . Title Title Title Title Title Title . ."
+      ". . . . . . . . . ."
+      ". . Info Info Info Info Info Info . ."
+      ". . Info Info Info Info Info Info . ."
+      ". . Info Info Info Info Info Info . ."
+      ". . Info Info Info Info Info Info . ."
+      ". . Info Info Info Info Info Info . ."
+      ". . . . . . . . . ."
+      ". . . . . . . . . ."
+      ". . Footer Footer Footer Footer Footer Footer . .";
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    transition-duration: 350ms;
+    z-index: 1;
+
+    &.info {
+      background-color: rgb(161 150 128 / 0.3);
+    }
+
+    &.hidden {
+      opacity: 0;
+      z-index: -1;
+    }
+
+    .Info,
+    .Title,
+    .Footer {
+      background-color: $baby-powder;
+      border-radius: 7px;
+      box-shadow: -1px 4px 25px rgb(161 150 128);
+      text-align: center;
+    }
+
+    .Title {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      display: flex;
+      grid-area: Title;
+      overflow-wrap: break-word;
+
+      h1 {
+        font-size: 3em;
+        margin: auto;
+        max-width: 100%;
+
+        .blue {
+          overflow-wrap: normal;
+        }
+
+        @media only screen and (max-width: 440px) {
+          font-size: 2em;
+        }
+      }
+    }
+
+    .Info {
+      display: flex;
+      flex-direction: column;
+      grid-area: Info;
+      justify-content: space-around;
+      padding: 1.5em;
+      overflow: scroll;
+
+      section {
+        margin: auto;
+        max-width: 75%;
+        @media only screen and (max-width: 368px) {
+          max-width: 90%;
+        }
+      }
+    }
+
+    .Footer {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      grid-area: Footer;
+      padding: 1.5em;
+    }
+  }
+
+  .purple { color: $english-violet; }
+
+  .blue { color: $spanish-blue; }
+
+  h2 {
+    width: 100%;
+  }
+
+  .start-button-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .circle {
+      border-radius: 100%;
+      border: 2px solid $english-violet;
+      height: 40px;
+      margin: auto;
+      position: relative;
+      width: 40px;
+
+      .start-button {
+        cursor: pointer;
+        position: absolute;
+        width:100%;
+
+        .arrow {
+          background-size: contain;
+          bottom: 0;
+          color: $spanish-blue;
+          height: 12px;
+          left: 5.5px;
+          margin-left: 0px;
+          position: absolute;
+          top: 9px;
+          width: 12px;
+
+          &.animate {
+            animation-name: bounceAlpha;
+            animation-duration:1.4s;
+            animation-iteration-count:infinite;
+            animation-timing-function:linear;
+          }
+
+          &.first {
+            &.animate {
+              animation-name: bounceAlpha;
+              animation-duration:1.4s;
+              animation-delay:0.2s;
+              animation-iteration-count:infinite;
+              animation-timing-function:linear;
+            }
+          }
+
+          &.second{
+            margin-left: 8px;
+          }
+        }
+
+        @keyframes bounceAlpha {
+          0% {opacity: 1; transform: translateX(0px) scale(1);}
+          25%{opacity: 0; transform:translateX(10px) scale(0.9);}
+          26%{opacity: 0; transform:translateX(-10px) scale(0.9);}
+          55% {opacity: 1; transform: translateX(0px) scale(1);}
+        }
+      }
+    }
+  }
+}

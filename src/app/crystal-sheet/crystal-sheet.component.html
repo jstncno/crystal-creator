@@ -1,7 +1,11 @@
-<button class="randomize-button" mat-raised-button color="warn"
-  (click)="randomize()">
-  Randomize
-</button>
+<div class="menu">
+  <button mat-icon-button class="randomize-button" (click)="randomize()">
+    <mat-icon>casino</mat-icon>
+  </button>
+  <button mat-icon-button class="info-button" (click)="toggleInfo()">
+    <mat-icon>info</mat-icon>
+  </button>
+</div>
 
 <div class="sketch-container">
   <div id="sketch-sheet" #sketchSheet></div>
@@ -17,3 +21,5 @@
     </button>
   </div>
 </div>
+
+<cc-info-panel [(hide)]="hideInfo"></cc-info-panel>

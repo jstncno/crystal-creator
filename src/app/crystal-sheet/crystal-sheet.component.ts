@@ -40,9 +40,10 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
 
   static readonly CANVAS_HEIGHT_PX = window.innerHeight
   static readonly CANVAS_ID = 'canvas-sheet';
-  static readonly EDIT_BUTTON_ID = 'edit-button';
   static readonly CANVAS_WIDTH_PX = window.innerWidth;
+  static readonly EDIT_BUTTON_ID = 'edit-button';
   static readonly GUTTER_PX = 5;
+  static readonly INFO_ID = 'info';
 
   static readonly NUM_CRYSTALS_WIDTH = 10;
   static readonly CRYSTAL_SIZE_PX = (CrystalSheetComponent.CANVAS_WIDTH_PX /
@@ -55,6 +56,11 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
     return this.selectedCrystal?.layers?.length > 0;
   }
 
+  get showInfo(): boolean {
+    return !this.hideInfo;
+  }
+
+  hideInfo = false;
   selectedCrystal: Crystal = {layers: []};
 
   private bounds = new Map<Bounds, Crystal>();
@@ -63,6 +69,13 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
     protected readonly route: ActivatedRoute,
     protected readonly router: Router) {
     super(route, router);
+  }
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const {hideInfo} = params;
+      if (hideInfo) this.hideInfo = JSON.parse(hideInfo);
+    });
   }
 
   setup() {
@@ -106,11 +119,25 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
 
   mousePressed() {
     const el = document.elementFromPoint(this.mouseX, this.mouseY);
+    console.log(el)
     if (el) {
-      if (el.id === CrystalSheetComponent.EDIT_BUTTON_ID) return;
-      else if (el.id !== CrystalSheetComponent.CANVAS_ID) {
-        this.closeDialog();
-        return;
+      switch (el.id) {
+        case CrystalSheetComponent.INFO_ID:
+          if (this.showInfo) {
+            this.hideInfo = true;
+            return;
+          }
+          break;
+        case CrystalSheetComponent.EDIT_BUTTON_ID:
+          return;
+        case CrystalSheetComponent.CANVAS_ID:
+          if (this.showPreview) {
+            this.closeDialog();
+            return;
+          }
+          break;
+        default:
+          return;
       }
     }
     const crystal = this.findCrystalAtPoint({x: this.mouseX, y: this.mouseY});
@@ -126,6 +153,10 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
   randomize() {
     super.randomize();
     this.redraw();
+  }
+
+  toggleInfo() {
+    this.hideInfo = !this.hideInfo;
   }
 
   switchToEditMode() {

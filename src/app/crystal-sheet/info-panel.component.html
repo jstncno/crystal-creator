@@ -1,0 +1,63 @@
+<div [ngClass]="{'hidden': hide}" id="info" class="info grid-container">
+  <div class="Title">
+    <h1>
+      <span class="purple">Crystal</span>
+      <span class="blue">Creator</span>
+    </h1>
+  </div>
+  <div class="Info">
+    <section>
+      <h2>What <span class="blue">is it?</span></h2>
+      <p>
+        <span class="display">
+          <span class="purple">Crystal</span>
+          <span class="blue">Creator</span>
+        </span>
+        is an interactive web application based off of Matthew Epler's YouTube
+        series on
+        <a href="https://www.youtube.com/playlist?list=PLyRZnpOSgMj3K8AV2I6UldnvTj6d_Zrf0">
+          Designing Generative Systems with <code>p5.js</code>
+        </a> (with an extra shout out to Stephan Max for
+        <a href="https://stephanmax.is/writing/generative-art-with-p5js">
+          more inspiration</a>).
+        It creates geometric <code class="blue">"crystals"</code> from
+        a set of randomly generated parameters.
+      </p>
+    </section>
+    <section>
+      <h2>How to <span class="blue">use it?</span></h2>
+      <p>
+        This page loads with a new set of <code class="blue">crystals</code>
+        every time. If you see one you like, click to download or edit it.
+        In edit mode, you can tweak it to your liking, or create a new one of
+        your own!
+      </p>
+    </section>
+    <section class="start-button-container">
+      <h2><span class="blue">Get</span> started</h2>
+      <div class="circle" (click)="close()">
+        <div class="start-button">
+          <span class="arrow animate first">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </span>
+          <span class="arrow animate second">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </span>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="Footer">
+    <section>
+      <h2>Why<span class="blue">?</span></h2>
+      <p>
+        <span class="display">
+          <span class="purple">Crystal</span>
+          <span class="blue">Creator</span>
+        </span>
+        was initially created in 2020 and served as a creative outlet to help
+        combat shelter-in-place boredom and depression.
+      </p>
+    </section>
+  </div>
+</div>
