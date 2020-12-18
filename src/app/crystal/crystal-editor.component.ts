@@ -3,7 +3,6 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AbstractBaseSketch } from '@crystal-creator/p5/base';
 import { Layer } from '@crystal-creator/crystal/layers/base-layer';
 import * as utils from '@crystal-creator/p5/utils';
-import { BroadcastService } from './broadcast.service';
 import { CrystalComponent } from './crystal.component';
 import { SupportedLayer, createRenderableLayer } from './layers/utils';
 
@@ -45,7 +44,7 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
     '#3374AB', // Spanish Blue
   ];
 
-  constructor(protected readonly broadcast: BroadcastService) {
+  constructor() {
     super();
   }
 

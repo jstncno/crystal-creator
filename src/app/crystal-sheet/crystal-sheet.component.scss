@@ -2,7 +2,7 @@
 @import '/src/theme.scss';
 
 :host {
-  button {
+  button.randomize-button {
     bottom: 10%;
     left: calc(calc(100% / 2) - 150px);
     position: absolute;
@@ -36,6 +36,7 @@
       background-color: $baby-powder;
       border-radius: 15px;
       display: flex;
+      flex-direction: column;
       margin: auto;
       pointer-events: initial;
 

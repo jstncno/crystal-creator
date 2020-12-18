@@ -1,4 +1,5 @@
-<button mat-raised-button color="warn" (click)="randomize()">
+<button class="randomize-button" mat-raised-button color="warn"
+  (click)="randomize()">
   Randomize
 </button>
 
@@ -10,5 +11,8 @@
 <div [ngClass]="{'hidden': !showPreview}" class="dialog">
   <div class="crystal-container">
     <cc-crystal [layers]="selectedCrystal.layers"></cc-crystal>
+    <button mat-raised-button color="accent" (click)="switchToEditMode()">
+      Edit
+    </button>
   </div>
 </div>

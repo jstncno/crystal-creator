@@ -5,6 +5,7 @@ import { CrystalEditorComponent } from '@crystal-creator/crystal/crystal-editor.
 
 import { Layer, RenderableLayer } from '@crystal-creator/crystal/layers/base-layer';
 import { createRenderableLayer } from '@crystal-creator/crystal/layers/utils';
+import { Router } from '@angular/router';
 
 
 interface Crystal {
@@ -56,6 +57,10 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
   selectedCrystal: Crystal = {layers: []};
 
   private bounds = new Map<Bounds, Crystal>();
+
+  constructor(private readonly router: Router) {
+    super();
+  }
 
   setup() {
     const width = CrystalSheetComponent.CANVAS_WIDTH_PX +
@@ -114,6 +119,10 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
   randomize() {
     super.randomize();
     this.redraw();
+  }
+
+  switchToEditMode() {
+    this.router.navigate(['/editor']);
   }
 
   protected randomLayerData(layerType?: string): Layer {

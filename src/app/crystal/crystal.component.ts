@@ -40,7 +40,8 @@ export class CrystalComponent extends AbstractBaseSketch {
   setup() {
     const canvas = this.createCanvas(CrystalComponent.CRYSTAL_SIZE_PX,
       CrystalComponent.CRYSTAL_SIZE_PX);
-    if (this.root) canvas.parent(this.root.nativeElement);
+    if (!this.root) return location.reload();
+    canvas.parent(this.root.nativeElement);
     this.noLoop();
     this.angleMode(this.DEGREES);
     this.rectMode(this.CENTER);
