@@ -23,6 +23,7 @@
     button {
       $size: 30px;
 
+      box-shadow: 0 0 5px rgb(75 75 75 / 0.5);
       height: $size;
       margin: 4px 0;
       width: $size;
@@ -37,9 +38,14 @@
         background-color: $upsdell-red;
       }
 
-      &.info-button {
+      &.edit-button {
         color: $baby-powder;
-        background-color: $davys-gray;
+        background-color: $english-violet;
+      }
+
+      &.info-button {
+        color: $davys-gray;
+        background-color: $baby-powder;
       }
     }
   }

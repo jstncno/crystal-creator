@@ -160,12 +160,10 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
   }
 
   switchToEditMode() {
+    const queryParams = {};
     const {layers} = this.selectedCrystal;
-    this.router.navigate(['/editor'], {
-      queryParams: {
-        layers: JSON.stringify(layers),
-      },
-    });
+    if (layers.length) queryParams['layers'] = JSON.stringify(layers);
+    this.router.navigate(['/editor'], {queryParams});
   }
 
   protected randomLayerData(layerType?: string): Layer {
