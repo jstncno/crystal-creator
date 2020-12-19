@@ -119,7 +119,6 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
 
   mousePressed() {
     const el = document.elementFromPoint(this.mouseX, this.mouseY);
-    console.log(el)
     if (el) {
       switch (el.id) {
         case CrystalSheetComponent.INFO_ID:
