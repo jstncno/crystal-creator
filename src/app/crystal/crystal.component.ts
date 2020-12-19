@@ -1,6 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-
-import { AbstractBaseSketch } from '@crystal-creator/p5/base';
+import * as p5 from 'p5';
 
 import { RenderableLayer } from './layers/base-layer';
 import { createRenderableLayer, SupportedLayer } from './layers/utils';
@@ -11,13 +10,20 @@ import { createRenderableLayer, SupportedLayer } from './layers/utils';
   templateUrl: './crystal.component.html',
   styleUrls: ['./crystal.component.scss']
 })
-export class CrystalComponent extends AbstractBaseSketch {
+export class CrystalComponent {
 
   static readonly CRYSTAL_SIZE_PX: number = 500;
   static readonly CRYSTAL_SIDES = 6;
 
+  private root_: ElementRef;
+  get root(): ElementRef {
+    return this.root_;
+  }
   @ViewChild('sketch')
-  root: ElementRef;
+  set root(el: ElementRef) {
+    this.root_ = el;
+    this.initSketch();
+  }
 
   private layers_: RenderableLayer[] = [];
   get layers(): RenderableLayer[] {
@@ -27,7 +33,7 @@ export class CrystalComponent extends AbstractBaseSketch {
   set layers(layers: RenderableLayer[]) {
     const needsRedraw = areLayersDifferent(this.layers_, layers);
     this.layers_ = layers.map(params => createRenderableLayer(params));
-    if (needsRedraw) this.redraw();
+    if (this.sketch && needsRedraw) this.sketch.redraw();
   }
 
   @Output()
@@ -37,25 +43,29 @@ export class CrystalComponent extends AbstractBaseSketch {
   imageData = new EventEmitter<string>();
 
   private canvas: HTMLCanvasElement;
+  private sketch: p5;
 
-  constructor() {
-    super();
+  initSketch() {
+    const sketch = s => {
+      s.setup = () => this.setup(s);
+      s.draw = () => this.draw(s);
+    };
+    this.sketch = new p5(sketch);
   }
 
-  setup() {
-    const canvas = this.createCanvas(CrystalComponent.CRYSTAL_SIZE_PX,
+  setup(sketch: p5) {
+    const canvas = sketch.createCanvas(CrystalComponent.CRYSTAL_SIZE_PX,
       CrystalComponent.CRYSTAL_SIZE_PX);
     this.canvas = canvas.elt;
-    if (!this.root) return location.reload();
     canvas.parent(this.root.nativeElement);
-    this.noLoop();
-    this.angleMode(this.DEGREES);
-    this.rectMode(this.CENTER);
+    sketch.noLoop();
+    sketch.angleMode(sketch.DEGREES);
+    sketch.rectMode(sketch.CENTER);
   }
 
-  draw = () => {
+  draw = (sketch: p5) => {
     this.layers = this.layers.map(layer => {
-      layer.render(this);
+      layer.render(sketch);
       return layer;
     });
     this.layersChange.emit(this.layers);
