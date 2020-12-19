@@ -17,6 +17,10 @@
               [colorPicker]="colors[i]"
               (colorPickerChange)="changeColor($event, i)">
           </mat-form-field>
+          <button mat-button class="remove-layer-button"
+            (click)="removeColor($event, i)">
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
         </div>
       </ng-container>
     </div>

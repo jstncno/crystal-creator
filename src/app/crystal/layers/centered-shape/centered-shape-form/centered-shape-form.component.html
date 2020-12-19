@@ -1,12 +1,21 @@
 <form *ngIf="form" [formGroup]="form" class="centered-shape-form">
-  <mat-form-field appearance="outline">
-    <mat-label>Fill Color</mat-label>
-    <input matInput formControlName="fillColor" [matAutocomplete]="colors">
-  </mat-form-field>
-  <mat-form-field appearance="outline">
-    <mat-label>Stroke Color</mat-label>
-    <input matInput formControlName="strokeColor" [matAutocomplete]="colors">
-  </mat-form-field>
+  <div class="color-input-group">
+    <span class="color-block" [ngStyle]="{'background-color': layer.fillColor}">
+    </span>
+    <mat-form-field appearance="outline">
+      <mat-label>Fill Color</mat-label>
+      <input matInput formControlName="fillColor" [matAutocomplete]="colors">
+    </mat-form-field>
+  </div>
+  <div class="color-input-group">
+    <span class="color-block"
+      [ngStyle]="{'background-color': layer.strokeColor}">
+    </span>
+    <mat-form-field appearance="outline">
+      <mat-label>Stroke Color</mat-label>
+      <input matInput formControlName="strokeColor" [matAutocomplete]="colors">
+    </mat-form-field>
+  </div>
   <mat-form-field appearance="outline">
     <mat-label>Stroke Weight</mat-label>
     <input matInput formControlName="strokeWeight" type="number">

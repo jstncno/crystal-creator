@@ -62,6 +62,19 @@ a {
   color: $upsdell-red;
 }
 
+.color-input-group {
+  display: flex;
+
+  .color-block {
+    border: 1px dashed $davys-gray;
+    border-radius: 7px;
+    display: inline-block;
+    height: 30px;
+    margin: 15px 7px;
+    width: 30px;
+  }
+}
+
 .color-option-container {
   display: flex;
   .color-block-option {
