@@ -1,9 +1,13 @@
 <form *ngIf="form" [formGroup]="form" class="lines-form">
   <h3><strong>Base params</strong></h3>
-  <mat-form-field appearance="outline">
-    <mat-label>Fill Color</mat-label>
-    <input matInput formControlName="fillColor" [matAutocomplete]="colors">
-  </mat-form-field>
+  <div class="color-input-group">
+    <span class="color-block" [ngStyle]="{'background-color': layer.fillColor}">
+    </span>
+    <mat-form-field appearance="outline">
+      <mat-label>Fill Color</mat-label>
+      <input matInput formControlName="fillColor" [matAutocomplete]="colors">
+    </mat-form-field>
+    </div>
 
   <hr/>
 
