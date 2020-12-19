@@ -33,6 +33,11 @@ export class CrystalComponent extends AbstractBaseSketch {
   @Output()
   layersChange = new EventEmitter<SupportedLayer[]>();
 
+  @Output()
+  imageData = new EventEmitter<string>();
+
+  private canvas: HTMLCanvasElement;
+
   constructor() {
     super();
   }
@@ -40,6 +45,7 @@ export class CrystalComponent extends AbstractBaseSketch {
   setup() {
     const canvas = this.createCanvas(CrystalComponent.CRYSTAL_SIZE_PX,
       CrystalComponent.CRYSTAL_SIZE_PX);
+    this.canvas = canvas.elt;
     if (!this.root) return location.reload();
     canvas.parent(this.root.nativeElement);
     this.noLoop();
@@ -53,6 +59,7 @@ export class CrystalComponent extends AbstractBaseSketch {
       return layer;
     });
     this.layersChange.emit(this.layers);
+    this.imageData.next(this.canvas.toDataURL());
   };
 }
 

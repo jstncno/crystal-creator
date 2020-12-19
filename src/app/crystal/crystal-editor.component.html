@@ -11,12 +11,15 @@
     <button mat-raised-button color="accent" (click)="randomize()">
       Randomize
     </button>
-    <cc-crystal [(layers)]="layers"></cc-crystal>
+    <cc-crystal [(layers)]="layers" (imageData)="onImageData($event)"></cc-crystal>
+
+    <button mat-raised-button color="accent"
+      [disabled]="!allowDownload"
+      (click)="downloadCrystal()">
+      Download
+    </button>
   </div>
   <div class="col">
-    <button mat-raised-button color="accent" (click)="redraw()">
-      Redraw
-    </button>
     <cc-layers-form [layers]="layers"
       (layersChange)="layersChange($event)"
       (addLayerPress)="addLayer()"

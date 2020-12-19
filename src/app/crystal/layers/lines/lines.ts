@@ -120,7 +120,7 @@ export class DottedLines implements DottedLinesLayer {
   };
 
   setParams = (sketch: p5) => {
-    this.centerOffset = this.centerOffset ?? this.size / 16;
+    this.centerOffset = this.centerOffset ?? this.size / (sketch.random(8, 16));
     this.numLines = this.numLines ??
       utils.chooseOne(sketch, [this.sides, this.sides * 2]);
     return this;

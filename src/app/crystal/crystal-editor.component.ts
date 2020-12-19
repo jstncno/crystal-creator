@@ -37,13 +37,20 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
     return this.layers_;
   }
   set layers(layers: SupportedLayer[]) {
+    this.imageData = undefined;
     this.layers_ = layers.map(params => createRenderableLayer(params));
+  }
+
+  get allowDownload(): boolean {
+    return !!this.imageData;
   }
 
   palette: string[] = [
     '#694873', // English Violet
     '#3374AB', // Spanish Blue
   ];
+
+  private imageData: string;
 
   constructor(
     protected readonly route: ActivatedRoute,
@@ -79,7 +86,7 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
   }
 
   addLayer() {
-    this.layers.push(this.randomLayerData());
+    this.layers = this.layers.concat(this.randomLayerData());
   }
 
   randomizeLayer(index: number) {
@@ -91,6 +98,18 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
 
   navBack() {
     this.router.navigate(['/'], {queryParams: {hideInfo: true}});
+  }
+
+  onImageData(data: string) {
+    this.imageData = data;
+  }
+
+  downloadCrystal() {
+    if (!this.imageData) return;
+    const link = document.createElement('a');
+    link.download = 'crystal.png';
+    link.href = this.imageData;
+    link.click();
   }
 
   protected randomLayerData(layerType?: string): Layer {
