@@ -1,11 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 import { AbstractBaseSketch } from '@crystal-creator/p5/base';
 import { Layer } from '@crystal-creator/crystal/layers/base-layer';
 import * as utils from '@crystal-creator/p5/utils';
 import { CrystalComponent } from './crystal.component';
 import { SupportedLayer, createRenderableLayer } from './layers/utils';
+import { ColorPaletteService, INITIAL_PALETTE } from './color-palette/color-palette.service';
 
 
 const LAYER_PROBABILITIES = [
@@ -45,16 +47,15 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
     return !!this.imageData;
   }
 
-  palette: string[] = [
-    '#694873', // English Violet
-    '#3374AB', // Spanish Blue
-  ];
+  palette: string[] = [...INITIAL_PALETTE];
 
   private imageData: string;
 
   constructor(
     protected readonly route: ActivatedRoute,
-    protected readonly router: Router) {
+    protected readonly router: Router,
+    protected readonly paletteService: ColorPaletteService,
+  ) {
     super();
   }
 
@@ -64,6 +65,7 @@ export class CrystalEditorComponent extends AbstractBaseSketch {
       const {layers} = params;
       if (layers) this.layers = JSON.parse(layers);
     });
+    this.paletteService.colorPalette$.subscribe(p => this.palette = p);
   }
 
   draw = () => {

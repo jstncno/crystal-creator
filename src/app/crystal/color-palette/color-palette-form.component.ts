@@ -40,6 +40,7 @@ export class ColorPaletteFormComponent implements OnInit {
   removeColor(event: MouseEvent, index: number) {
     event.stopPropagation();
     this.colorsFormArray.removeAt(index);
+    this.setColorsFromForm();
   }
 
   changeColor(color: string, index: number) {

@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+export const INITIAL_PALETTE: string[] = [
+  '#694873', // English Violet
+  '#3374AB', // Spanish Blue
+];
+
 @Injectable({
   providedIn: 'root'
 })
 export class ColorPaletteService {
 
-  private colorsSub = new BehaviorSubject<string[]>([]);
+  private colorsSub = new BehaviorSubject<string[]>([...INITIAL_PALETTE]);
   colorPalette$ = this.colorsSub.asObservable();
 
   constructor() { }

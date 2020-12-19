@@ -6,6 +6,7 @@ import { CrystalEditorComponent } from '@crystal-creator/crystal/crystal-editor.
 
 import { Layer, RenderableLayer } from '@crystal-creator/crystal/layers/base-layer';
 import { createRenderableLayer } from '@crystal-creator/crystal/layers/utils';
+import { ColorPaletteService } from '@crystal-creator/crystal/color-palette/color-palette.service';
 
 
 interface Crystal {
@@ -67,8 +68,10 @@ export class CrystalSheetComponent extends CrystalEditorComponent {
 
   constructor(
     protected readonly route: ActivatedRoute,
-    protected readonly router: Router) {
-    super(route, router);
+    protected readonly router: Router,
+    protected readonly paletteService: ColorPaletteService,
+  ) {
+    super(route, router, paletteService);
   }
 
   ngOnInit() {
