@@ -64,6 +64,7 @@ export class CrystalComponent {
   }
 
   draw = (sketch: p5) => {
+    sketch.clear();
     this.layers = this.layers.map(layer => {
       layer.render(sketch);
       return layer;
