@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CrystalModule } from './crystal/crystal.module';
 import { CrystalSheetModule } from './crystal-sheet/crystal-sheet.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CrystalSheetModule } from './crystal-sheet/crystal-sheet.module';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

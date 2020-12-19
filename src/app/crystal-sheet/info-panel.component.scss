@@ -9,20 +9,20 @@
 
   .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-      ". . Title Title Title Title Title Title . ."
-      ". . . . . . . . . ."
-      ". . Info Info Info Info Info Info . ."
-      ". . Info Info Info Info Info Info . ."
-      ". . Info Info Info Info Info Info . ."
-      ". . Info Info Info Info Info Info . ."
-      ". . Info Info Info Info Info Info . ."
-      ". . . . . . . . . ."
-      ". . . . . . . . . ."
-      ". . Footer Footer Footer Footer Footer Footer . .";
+      ". . . Title Title Title Title Title . . ."
+      ". . . . . . . . . . ."
+      ". . . Info Info Info Info Info . . ."
+      ". . . Info Info Info Info Info . . ."
+      ". . . Info Info Info Info Info . . ."
+      ". . . Info Info Info Info Info . . ."
+      ". . . Info Info Info Info Info . . ."
+      ". . . Info Info Info Info Info . . ."
+      ". . . . . . . . . . ."
+      ". . . . . Footer . . . . .";
     height: 100%;
     left: 0;
     position: fixed;
@@ -35,11 +35,6 @@
       background-color: rgb(161 150 128 / 0.3);
     }
 
-    &.hidden {
-      opacity: 0;
-      z-index: -1;
-    }
-
     .Info,
     .Title,
     .Footer {
@@ -47,6 +42,8 @@
       border-radius: 7px;
       box-shadow: -1px 4px 25px rgb(161 150 128);
       text-align: center;
+      transform: translateY(0);
+      transition-duration: 350ms;
     }
 
     .Title {
@@ -75,15 +72,88 @@
       display: flex;
       flex-direction: column;
       grid-area: Info;
-      justify-content: space-around;
-      padding: 1.5em;
+      justify-content: space-between;
       overflow: scroll;
 
       section {
-        margin: auto;
+        margin: 15px auto;
         max-width: 75%;
+
+        &:first-child {
+          margin-top: 25px;
+        }
+
         @media only screen and (max-width: 368px) {
           max-width: 90%;
+        }
+
+        h2 {
+          width: 100%;
+        }
+
+        &.why {
+          margin-top: 30px;
+        }
+      }
+
+      .start-button-container {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        .circle {
+          border-radius: 100%;
+          border: 2px solid $english-violet;
+          height: 40px;
+          margin: auto;
+          position: relative;
+          width: 40px;
+
+          .start-button {
+            cursor: pointer;
+            position: absolute;
+            width:100%;
+
+            .arrow {
+              background-size: contain;
+              bottom: 0;
+              color: $spanish-blue;
+              height: 12px;
+              left: 5.5px;
+              margin-left: 0px;
+              position: absolute;
+              top: 9px;
+              width: 12px;
+
+              &.animate {
+                animation-name: bounceAlpha;
+                animation-duration:1.4s;
+                animation-iteration-count:infinite;
+                animation-timing-function:linear;
+              }
+
+              &.first {
+                &.animate {
+                  animation-name: bounceAlpha;
+                  animation-duration:1.4s;
+                  animation-delay:0.2s;
+                  animation-iteration-count:infinite;
+                  animation-timing-function:linear;
+                }
+              }
+
+              &.second{
+                margin-left: 8px;
+              }
+            }
+
+            @keyframes bounceAlpha {
+              0% {opacity: 1; transform: translateX(0px) scale(1);}
+              25%{opacity: 0; transform:translateX(10px) scale(0.9);}
+              26%{opacity: 0; transform:translateX(-10px) scale(0.9);}
+              55% {opacity: 1; transform: translateX(0px) scale(1);}
+            }
+          }
         }
       }
     }
@@ -91,77 +161,34 @@
     .Footer {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+      display: flex;
       grid-area: Footer;
-      padding: 1.5em;
+
+      .github-icon {
+        font-size: 2.5em;
+        margin: auto;
+
+        a {
+          color: $english-violet;
+        }
+      }
+    }
+
+    &.hidden {
+      opacity: 0;
+      z-index: -1;
+
+      .Title {
+        transform: translateY(-100px);
+      }
+
+      .Footer {
+        transform: translateY(100px);
+      }
     }
   }
 
   .purple { color: $english-violet; }
 
   .blue { color: $spanish-blue; }
-
-  h2 {
-    width: 100%;
-  }
-
-  .start-button-container {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-
-    .circle {
-      border-radius: 100%;
-      border: 2px solid $english-violet;
-      height: 40px;
-      margin: auto;
-      position: relative;
-      width: 40px;
-
-      .start-button {
-        cursor: pointer;
-        position: absolute;
-        width:100%;
-
-        .arrow {
-          background-size: contain;
-          bottom: 0;
-          color: $spanish-blue;
-          height: 12px;
-          left: 5.5px;
-          margin-left: 0px;
-          position: absolute;
-          top: 9px;
-          width: 12px;
-
-          &.animate {
-            animation-name: bounceAlpha;
-            animation-duration:1.4s;
-            animation-iteration-count:infinite;
-            animation-timing-function:linear;
-          }
-
-          &.first {
-            &.animate {
-              animation-name: bounceAlpha;
-              animation-duration:1.4s;
-              animation-delay:0.2s;
-              animation-iteration-count:infinite;
-              animation-timing-function:linear;
-            }
-          }
-
-          &.second{
-            margin-left: 8px;
-          }
-        }
-
-        @keyframes bounceAlpha {
-          0% {opacity: 1; transform: translateX(0px) scale(1);}
-          25%{opacity: 0; transform:translateX(10px) scale(0.9);}
-          26%{opacity: 0; transform:translateX(-10px) scale(0.9);}
-          55% {opacity: 1; transform: translateX(0px) scale(1);}
-        }
-      }
-    }
-  }
 }
